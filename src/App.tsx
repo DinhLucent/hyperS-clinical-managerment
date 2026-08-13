@@ -20,7 +20,7 @@ import {
 import type { JSX } from 'react';
 import { Suspense, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router';
-import { HyperSAppShell } from './components/HyperSAppShell';
+import { HyperSolAppShell } from './components/HyperSolAppShell';
 import { TaskDetailsModal } from './components/tasks/TaskDetailsModal';
 import { hasScriptSureIdentifier } from './components/utils';
 import { useDoseSpotAccess } from './hooks/useDoseSpotAccess';
@@ -124,7 +124,7 @@ export function App(): JSX.Element | null {
   }
 
   const appShellContent = (
-    <HyperSAppShell
+    <HyperSolAppShell
       pathname={location.pathname}
       searchParams={searchParams}
       menus={
@@ -309,7 +309,7 @@ export function App(): JSX.Element | null {
           )}
         </Routes>
       </Suspense>
-    </HyperSAppShell>
+    </HyperSolAppShell>
   );
 
   return hasScriptSure ? <ScriptSurePracticeProvider>{appShellContent}</ScriptSurePracticeProvider> : appShellContent;

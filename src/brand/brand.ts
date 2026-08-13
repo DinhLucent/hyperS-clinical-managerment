@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 import type { MantineColorsTuple } from '@mantine/core';
 
-export const hyperSBrand = {
-  name: 'HyperS',
-  productTitle: 'HyperS Clinical Management',
-  description: 'A local-first clinical workspace for HyperS care teams.',
+export const hyperSolBrand = {
+  name: 'HyperSol',
+  productTitle: 'HyperSol Clinical Management',
+  description: 'A local-first clinical workspace for HyperSol care teams.',
   colors: {
     primary: '#1264FF',
     primaryDeep: '#084ABF',
@@ -19,7 +19,7 @@ export const hyperSBrand = {
   },
 } as const;
 
-export const hyperSBlue: MantineColorsTuple = [
+export const hyperSolBlue: MantineColorsTuple = [
   '#EEF4FF',
   '#D9E7FF',
   '#BCD4FF',

@@ -39,9 +39,9 @@ describe('RegisterPage', () => {
     const medplum = new MockClient({ profile: null });
     await setup(medplum);
 
-    expect(screen.getByText('Create your HyperS account')).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: 'HyperS' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Register Account' })).toBeInTheDocument();
+    expect(screen.getByText('Create your HyperSol account')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'HyperSol' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Create account' })).toBeInTheDocument();
     expect(screen.queryByText(/Medplum/i)).not.toBeInTheDocument();
     expect(screen.queryAllByRole('link')).toHaveLength(0);
   });
@@ -52,7 +52,7 @@ describe('RegisterPage', () => {
     const medplum = new MockClient({ profile: DrAliceSmith });
     await setup(medplum);
 
-    expect(screen.getByText('Sign in to HyperS')).toBeInTheDocument();
+    expect(screen.getByText('Sign in to HyperSol')).toBeInTheDocument();
   });
 
   test('Submit success', async () => {
@@ -79,9 +79,65 @@ describe('RegisterPage', () => {
     await user.type(screen.getByLabelText('Email *'), 'george@example.com');
     await user.type(screen.getByLabelText('Password *'), 'password');
 
-    await user.click(screen.getByRole('button', { name: 'Register Account' }));
+    await user.click(screen.getByRole('button', { name: 'Create account' }));
 
-    expect(await screen.findByLabelText('Project Name *')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Project name *')).toBeInTheDocument();
+  });
+
+  test('prevents duplicate account submissions while a request is pending', async () => {
+    vi.stubEnv('MEDPLUM_REGISTER_ENABLED', 'true');
+
+    let resolveRegistration:
+      | ((response: Awaited<ReturnType<MedplumClient['startNewUser']>>) => void)
+      | undefined;
+    const medplum = new MockClient({ profile: null });
+    medplum.startNewUser = vi.fn(
+      () =>
+        new Promise<Awaited<ReturnType<MedplumClient['startNewUser']>>>((resolve) => {
+          resolveRegistration = resolve;
+        })
+    );
+    const user = await setup(medplum);
+
+    await user.type(screen.getByLabelText('First name *'), 'George');
+    await user.type(screen.getByLabelText('Last name *'), 'Washington');
+    await user.type(screen.getByLabelText('Email *'), 'george@example.com');
+    await user.type(screen.getByLabelText('Password *'), 'password');
+
+    const submitButton = screen.getByRole('button', { name: 'Create account' });
+    await user.dblClick(submitButton);
+
+    expect(medplum.startNewUser).toHaveBeenCalledTimes(1);
+    expect(submitButton).toBeDisabled();
+
+    await act(async () => resolveRegistration?.({ login: '1' }));
+    expect(await screen.findByLabelText('Project name *')).toBeInTheDocument();
+  });
+
+  test('shows a safe error and preserves entered values', async () => {
+    vi.stubEnv('MEDPLUM_REGISTER_ENABLED', 'true');
+
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const medplum = new MockClient({ profile: null });
+    medplum.startNewUser = vi.fn(() => Promise.reject(new Error('postgres connection string leaked')));
+    const user = await setup(medplum);
+
+    const firstName = screen.getByLabelText('First name *');
+    const email = screen.getByLabelText('Email *');
+    await user.type(firstName, 'George');
+    await user.type(screen.getByLabelText('Last name *'), 'Washington');
+    await user.type(email, 'george@example.com');
+    await user.type(screen.getByLabelText('Password *'), 'password');
+    await user.click(screen.getByRole('button', { name: 'Create account' }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      "We couldn't create the account. Check your details and try again."
+    );
+    expect(screen.queryByText(/postgres connection string leaked/i)).not.toBeInTheDocument();
+    expect(firstName).toHaveValue('George');
+    expect(email).toHaveValue('george@example.com');
+    expect(screen.getByRole('button', { name: 'Create account' })).toBeEnabled();
+    consoleSpy.mockRestore();
   });
 
   test('Register disabled by default', async () => {

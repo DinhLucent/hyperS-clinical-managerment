@@ -35,7 +35,7 @@
 
 .sampleDataGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-rows: 1fr;
   gap: var(--mantine-spacing-md);
 }
@@ -84,4 +84,14 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+@media (max-width: 47.99em) {
+  .container {
+    max-width: 100%;
+  }
+
+  .sampleDataGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

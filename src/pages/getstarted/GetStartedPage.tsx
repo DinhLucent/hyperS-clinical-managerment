@@ -147,7 +147,7 @@ export function GetStartedPage(): JSX.Element {
         {/* Header */}
         <Box mb="6rem">
           <Title order={2} fw={800}>
-            Get Started with HyperS
+            Get Started with HyperSol
           </Title>
           <Text size="lg" mt=".25rem" className={classes.textSecondary}>
             Use this local demo to explore sample clinical workflows, review the available integrations, and configure
@@ -500,7 +500,7 @@ export function GetStartedPage(): JSX.Element {
             </Paper>
           </Box>
 
-          {/* HyperS support */}
+          {/* HyperSol support */}
           <Box>
             <Group mb="xl" gap="sm" align="center">
               <ActionIcon size={48} radius="xl" variant="light" className={classes.sectionIcon}>
@@ -508,7 +508,7 @@ export function GetStartedPage(): JSX.Element {
               </ActionIcon>
               <Stack gap={0} className={classes.flexOne}>
                 <Text fw={800} size="xl">
-                  HyperS Support
+                  HyperSol Support
                 </Text>
                 <Text size="sm" className={classes.textSecondary}>
                   Support channels are coming soon.
@@ -524,7 +524,7 @@ export function GetStartedPage(): JSX.Element {
                     </Text>
                     <Divider />
                     <Text size="md" className={classes.textSecondary} mb="sm" style={{ flex: 1 }}>
-                      HyperS support resources are being prepared for this local customer demo.
+                      HyperSol support resources are being prepared for this local customer demo.
                     </Text>
                   </Stack>
                   <Button variant="filled" size="sm" mt="sm" fullWidth disabled>

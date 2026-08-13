@@ -1,11 +1,18 @@
 // SPDX-FileCopyrightText: Copyright Orangebot, Inc. and Medplum contributors
 // SPDX-License-Identifier: Apache-2.0
 import { createTheme } from '@mantine/core';
-import { hyperSBlue } from './brand';
+import { hyperSolBlue } from './brand';
 
-export const hyperSTheme = createTheme({
+const bodyFont =
+  '"Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif';
+const displayFont =
+  '"Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif';
+
+export const hyperSolTheme = createTheme({
+  fontFamily: bodyFont,
+  fontFamilyMonospace: '"Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace',
   colors: {
-    blue: hyperSBlue,
+    blue: hyperSolBlue,
   },
   primaryColor: 'blue',
   primaryShade: 6,
@@ -18,19 +25,29 @@ export const hyperSTheme = createTheme({
     xl: '0 24px 56px rgba(11, 41, 68, 0.14)',
   },
   headings: {
+    fontFamily: displayFont,
+    fontWeight: '650',
     sizes: {
-      h1: {
-        fontSize: '1.125rem',
-        fontWeight: '500',
-        lineHeight: '2.0',
-      },
+      h1: { fontSize: '1.625rem', lineHeight: '1.25' },
+      h2: { fontSize: '1.375rem', lineHeight: '1.3' },
+      h3: { fontSize: '1.1875rem', lineHeight: '1.35' },
+      h4: { fontSize: '1.0625rem', lineHeight: '1.4' },
+      h5: { fontSize: '0.9375rem', lineHeight: '1.45' },
+      h6: { fontSize: '0.8125rem', lineHeight: '1.45' },
     },
   },
   fontSizes: {
-    xs: '0.6875rem',
-    sm: '0.875rem',
-    md: '0.875rem',
-    lg: '1.0rem',
-    xl: '1.125rem',
+    xs: '0.75rem',
+    sm: '0.8125rem',
+    md: '0.9375rem',
+    lg: '1.0625rem',
+    xl: '1.25rem',
+  },
+  lineHeights: {
+    xs: '1.35',
+    sm: '1.4',
+    md: '1.5',
+    lg: '1.5',
+    xl: '1.35',
   },
 });

@@ -5,7 +5,7 @@ import { MedplumProvider } from '@medplum/react';
 import type { NavbarMenu } from '@medplum/react';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, test } from 'vitest';
-import { HyperSAppShell } from './HyperSAppShell';
+import { HyperSolAppShell } from './HyperSolAppShell';
 import { render, screen } from '../test-utils/render';
 
 const menus: NavbarMenu[] = [
@@ -18,22 +18,28 @@ const menus: NavbarMenu[] = [
   },
 ];
 
-describe('HyperSAppShell', () => {
+describe('HyperSolAppShell', () => {
   test('renders a branded authenticated shell without dependency branding', () => {
     const medplum = new MockClient({ profile: DrAliceSmith });
 
     render(
       <MemoryRouter initialEntries={['/Patient']}>
         <MedplumProvider medplum={medplum}>
-          <HyperSAppShell menus={menus}>
+          <HyperSolAppShell menus={menus}>
             <div>Clinical content</div>
-          </HyperSAppShell>
+          </HyperSolAppShell>
         </MedplumProvider>
       </MemoryRouter>
     );
 
-    expect(screen.getByRole('img', { name: 'HyperS' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'HyperSol' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'HyperSol home' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Skip to clinical content' })).toHaveAttribute(
+      'href',
+      '#hypersol-main-content'
+    );
     expect(screen.getByRole('navigation', { name: 'Primary navigation' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Open navigation' })).toHaveAttribute('aria-expanded', 'false');
     expect(screen.getByRole('link', { name: 'Patients' })).toHaveAttribute('aria-current', 'page');
     expect(screen.getByText('Clinical content')).toBeInTheDocument();
     expect(screen.queryByText(/Medplum/i)).not.toBeInTheDocument();
@@ -46,9 +52,9 @@ describe('HyperSAppShell', () => {
     render(
       <MemoryRouter>
         <MedplumProvider medplum={medplum}>
-          <HyperSAppShell menus={menus}>
+          <HyperSolAppShell menus={menus}>
             <div>Public content</div>
-          </HyperSAppShell>
+          </HyperSolAppShell>
         </MedplumProvider>
       </MemoryRouter>
     );

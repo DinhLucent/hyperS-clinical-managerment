@@ -1,6 +1,6 @@
-# HyperS Clinical Management
+# HyperSol Clinical Management
 
-HyperS Clinical Management is a local-first Provider demo for exploring clinical workflows while preserving the underlying FHIR and Medplum-compatible contracts.
+HyperSol Clinical Management is a local-first Provider demo for exploring clinical workflows while preserving the underlying FHIR and Medplum-compatible contracts.
 
 ## What the demo covers
 
@@ -9,7 +9,7 @@ HyperS Clinical Management is a local-first Provider demo for exploring clinical
 - Sample patient, visit, ICD-10, and order-set data
 - Medication, lab, billing, fax, SMART Health Link, and integration surfaces
 
-The customer-facing application is English-only and light-mode for this demo. Missing HyperS documentation, support, and integration-request destinations are represented as disabled `Coming soon` controls.
+The customer-facing application is English-only and light-mode for this demo. Missing HyperSol documentation, support, and integration-request destinations are represented as disabled `Coming soon` controls.
 
 ## Local prerequisites
 
@@ -49,7 +49,7 @@ Port 3000 belongs to an unrelated local application and must not be stopped, res
 
 ## Local-only configuration
 
-`.env.defaults` and the checked-in demo `.env` point the Provider at `http://localhost:8103/`. Google identity and reCAPTCHA values remain empty; no real OAuth, email, domain, or reCAPTCHA credentials are required or included.
+`.env.defaults` contains the safe local application defaults. Vite creates an ignored `.env` from those defaults on first run when no local file exists. Local demo login credentials belong only in `.env` and must never be committed. Google identity and reCAPTCHA values remain empty; no real OAuth, email, domain, or reCAPTCHA credentials are required or included.
 
 The application may use `@medplum/*` packages, `MedplumClient`, `MEDPLUM_*` environment keys, and FHIR canonical/system identifiers internally. These are compatibility contracts and are intentionally not renamed. See [NOTICE.md](NOTICE.md) for upstream attribution.
 
@@ -68,10 +68,10 @@ The known standalone baseline includes React Compiler lint warnings and a Vite l
 ## Customer-demo boundaries
 
 - Provider port 3001 is the customer-facing surface.
-- Admin port 3002 is for operators only and is not part of the HyperS rebrand.
+- Admin port 3002 is for operators only and is not part of the HyperSol rebrand.
 - No cloud deployment, SaaS dependency, schema migration, FHIR data reset, or database-volume reset is part of this repository.
 - `docker compose down -v` is prohibited because it can remove demo data.
 
 ## Brand assets
 
-The approved mark is documented in [docs/branding/HYPERS_BRAND.md](docs/branding/HYPERS_BRAND.md). The local web asset is `public/brand/hypers-mark.png`; it is copied from the approved transparent source without redrawing or distortion.
+The approved mark is documented in [docs/branding/HYPERSOL_BRAND.md](docs/branding/HYPERSOL_BRAND.md). The local web asset is `public/brand/hypersol-mark.png`; it is copied from the approved transparent source without redrawing or distortion.

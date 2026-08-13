@@ -1,14 +1,14 @@
 :root {
   color-scheme: light;
-  --hypers-primary: #1264ff;
-  --hypers-primary-deep: #084abf;
-  --hypers-ink: #0b2944;
-  --hypers-ink-deep: #061b2d;
-  --hypers-muted: #5c6f82;
-  --hypers-border: #dfe6ee;
-  --hypers-surface: #ffffff;
-  --hypers-soft-surface: #f4f7fb;
-  --hypers-focus-ring: rgba(18, 100, 255, 0.35);
+  --hypersol-primary: #1264ff;
+  --hypersol-primary-deep: #084abf;
+  --hypersol-ink: #0b2944;
+  --hypersol-ink-deep: #061b2d;
+  --hypersol-muted: #5c6f82;
+  --hypersol-border: #dfe6ee;
+  --hypersol-surface: #ffffff;
+  --hypersol-soft-surface: #f4f7fb;
+  --hypersol-focus-ring: rgba(18, 100, 255, 0.35);
 }
 
 html,
@@ -17,10 +17,59 @@ body,
   min-height: 100%;
 }
 
+html {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
 body {
   margin: 0;
-  background: var(--hypers-soft-surface);
-  color: var(--hypers-ink);
+  background: var(--hypersol-soft-surface);
+  color: var(--hypersol-ink);
+  font-size: var(--mantine-font-size-md);
+  line-height: var(--mantine-line-height-md);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  color: var(--hypersol-ink-deep);
+  background: rgba(18, 100, 255, 0.18);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--hypersol-ink-deep);
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+.mantine-Input-label {
+  color: var(--hypersol-ink);
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 600;
+}
+
+.mantine-Input-input {
+  min-height: 44px;
+  color: var(--hypersol-ink-deep);
+  font-size: var(--mantine-font-size-md);
+}
+
+.mantine-Button-root {
+  min-height: 42px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+.mantine-Input-input:focus,
+.mantine-Input-input:focus-within {
+  border-color: var(--hypersol-primary);
+  box-shadow: 0 0 0 3px var(--hypersol-focus-ring);
 }
 
 .mantine-ActionIcon-root:active {
@@ -94,4 +143,25 @@ body {
 
 .grecaptcha-badge {
   visibility: hidden;
+}
+
+@media (max-width: 47.99em) {
+  .mantine-Input-input {
+    font-size: 1rem;
+  }
+
+  .mantine-Button-root {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

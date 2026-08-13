@@ -60,7 +60,7 @@ export function SmartHealthLinkImportPage(): JSX.Element {
     const key = getSmartHealthLinkBundleEntryKey(entry);
     return !!key && selectedKeys.has(key) && entry.resource?.resourceType !== 'Patient';
   });
-  const recipient = medplum.getProject()?.name ?? 'HyperS';
+  const recipient = medplum.getProject()?.name ?? 'HyperSol';
   const hasTargetPatient = createNewPatient || !!selectedPatient;
 
   async function resolveLink(shlink: string): Promise<void> {

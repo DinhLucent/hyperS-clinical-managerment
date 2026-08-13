@@ -13,7 +13,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router';
 import { App } from './App';
-import { hyperSTheme } from './brand/theme';
+import { hyperSolTheme } from './brand/theme';
 
 const medplum = new MedplumClient({
   onUnauthenticated: () => (window.location.href = '/'),
@@ -31,7 +31,7 @@ const root = createRoot(container);
 root.render(
   <StrictMode>
     <MedplumProvider medplum={medplum} navigate={navigate}>
-      <MantineProvider theme={hyperSTheme} forceColorScheme="light">
+      <MantineProvider theme={hyperSolTheme} forceColorScheme="light">
         <Notifications position="bottom-right" />
         <RouterProvider router={router} />
       </MantineProvider>

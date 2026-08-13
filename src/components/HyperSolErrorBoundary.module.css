@@ -1,0 +1,27 @@
+.boundary {
+  width: min(100%, 680px);
+  margin: clamp(1rem, 5vw, 3rem) auto;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--hypersol-border);
+  border-radius: 16px;
+  background: var(--hypersol-surface);
+  box-shadow: var(--mantine-shadow-sm);
+}
+
+.boundary:focus-visible {
+  outline: 3px solid var(--hypersol-focus-ring);
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  color: var(--hypersol-primary-deep);
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.description {
+  max-width: 58ch;
+  color: var(--hypersol-muted);
+}

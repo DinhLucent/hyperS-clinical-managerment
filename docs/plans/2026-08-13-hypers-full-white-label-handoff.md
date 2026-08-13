@@ -1,10 +1,10 @@
-# HyperS Full White-Label — Implementation Handoff
+# HyperSol Full White-Label — Implementation Handoff
 
 ## 1. Mục đích tài liệu
 
-Đây là tài liệu chỉ đạo cho model triển khai. Model nhận bàn giao phải thực hiện trọn gói việc thay nhận diện ứng dụng Provider từ Medplum sang HyperS trong một nhánh và một pull request, sau đó chạy kiểm tra đầy đủ. Không tự mở rộng sang thay đổi nghiệp vụ, schema FHIR, backend API hoặc xây các route/tài liệu chưa tồn tại.
+Đây là tài liệu chỉ đạo cho model triển khai. Model nhận bàn giao phải thực hiện trọn gói việc thay nhận diện ứng dụng Provider từ Medplum sang HyperSol trong một nhánh và một pull request, sau đó chạy kiểm tra đầy đủ. Không tự mở rộng sang thay đổi nghiệp vụ, schema FHIR, backend API hoặc xây các route/tài liệu chưa tồn tại.
 
-Kết quả cần đạt: khách hàng mở `http://localhost:3001` chỉ thấy thương hiệu HyperS, giao diện tiếng Anh, hệ màu xanh dương theo landing page HyperS, không còn logo/màu tím/chữ/link Medplum trên các bề mặt UI của Provider, và ứng dụng vẫn kết nối hoàn toàn với API local tại `http://localhost:8103`.
+Kết quả cần đạt: khách hàng mở `http://localhost:3001` chỉ thấy thương hiệu HyperSol, giao diện tiếng Anh, hệ màu xanh dương theo landing page HyperSol, không còn logo/màu tím/chữ/link Medplum trên các bề mặt UI của Provider, và ứng dụng vẫn kết nối hoàn toàn với API local tại `http://localhost:8103`.
 
 File ghi chú bắt buộc trong lúc triển khai: `docs/plans/2026-08-13-hypers-full-white-label-implementation-notes.md`. Model triển khai phải tạo file này trước khi sửa code với heading `## Deviations`. Mọi sai lệch giữa kế hoạch và code thực tế phải ghi: kế hoạch yêu cầu gì, code buộc phải làm gì, quyết định đã chọn và bằng chứng kiểm tra.
 
@@ -14,8 +14,8 @@ Model triển khai được phép:
 
 - Sửa UI, theme, asset, metadata, tài liệu phát triển, cấu hình local và CI trong repository Provider.
 - Sao chép logo đã được duyệt từ dự án tham chiếu.
-- Sao chép Docker Compose local vào repository HyperS; không di chuyển hoặc xóa bản gốc.
-- Tạo nhánh, commit và push nhánh lên repository HyperS sau khi các cổng kiểm tra đạt.
+- Sao chép Docker Compose local vào repository HyperSol; không di chuyển hoặc xóa bản gốc.
+- Tạo nhánh, commit và push nhánh lên repository HyperSol sau khi các cổng kiểm tra đạt.
 
 Model triển khai không được phép:
 
@@ -43,7 +43,7 @@ Model triển khai không được phép:
 - Đã xác minh repository là `PRIVATE`, đang rỗng và GitHub CLI đăng nhập bằng tài khoản `DinhLucent`.
 - Tên remote đích: `origin`.
 - Remote Medplum sau khi setup: `upstream`, chỉ dùng để so sánh/cập nhật về sau.
-- Nhánh triển khai: `codex/hypers-white-label`.
+- Nhánh triển khai tiếp theo: `codex/hypersol-white-label-fixes`.
 
 ### 3.3 Runtime local
 
@@ -60,7 +60,7 @@ Model triển khai không được phép:
 - Logo được duyệt: `D:\MyProject\my-landingpage\public\brand-mark.png`.
 - Logo nguồn là PNG ARGB trong suốt, kích thước hiện tại `655 x 807`; không được kéo méo thành hình vuông.
 - Source of truth về màu là CSS đang chạy trong `D:\MyProject\my-landingpage\src\app\globals.css`, không phải mockup Stitch cũ nếu hai nguồn khác nhau.
-- Tên thương hiệu hiển thị: `HyperS`.
+- Tên thương hiệu hiển thị: `HyperSol`.
 - Ngôn ngữ UI: giữ tiếng Anh.
 
 ### 3.5 Baseline verification đã chạy
@@ -78,17 +78,17 @@ Model triển khai không được phép:
 ### Trong phạm vi
 
 - Toàn bộ bề mặt UI của Provider tại port 3001: browser metadata, favicon, AppShell, sign-in, registration, onboarding/Get Started, schedule banners, Spaces, medication badges, integration CTA và các fallback copy.
-- Hệ theme Mantine dùng màu HyperS; loại bỏ màu violet/purple còn sót trong code UI.
+- Hệ theme Mantine dùng màu HyperSol; loại bỏ màu violet/purple còn sót trong code UI.
 - Xóa mọi link có thể click đến Medplum docs/pricing/Discord/email khỏi Provider.
 - Thay link chưa có đích bằng nội dung không tương tác hoặc nút disabled có nhãn `Coming soon`; không dùng `href=""`, `href="#"` hoặc JavaScript no-op giả làm link.
 - Xử lý chính sách hình ảnh và logo.
-- Cấu hình local an toàn, README HyperS và GitHub Actions tối thiểu.
+- Cấu hình local an toàn, README HyperSol và GitHub Actions tối thiểu.
 - Kiểm tra desktop/mobile và đảm bảo không phát sinh request đến Medplum Cloud trong smoke flow.
 
 ### Ngoài phạm vi
 
 - Full theme Admin App tại port 3002. Image hiện tại là image dựng sẵn của Medplum; đổi toàn bộ màu cần build/fork monorepo và làm tăng mạnh chi phí bảo trì. Admin không được đưa vào demo và không được liên kết từ Provider.
-- Dark mode. Bản tham chiếu HyperS là light-first; Provider phải khóa light mode cho demo để không phát sinh một palette tối chưa được duyệt.
+- Dark mode. Bản tham chiếu HyperSol là light-first; Provider phải khóa light mode cho demo để không phát sinh một palette tối chưa được duyệt.
 - Dịch giao diện sang tiếng Việt.
 - Xây website docs, pricing, Discord/community, support email backend hoặc route mới.
 - Đổi logic đăng nhập, phân quyền, nghiệp vụ, integration behavior, dữ liệu mẫu hoặc clinical terminology.
@@ -115,7 +115,7 @@ Dùng một brand module nhỏ, không xây framework đa thương hiệu. Token
 | Soft surface | `#F4F7FB` |
 | Focus ring | `rgba(18, 100, 255, 0.35)` |
 
-Mantine `blue` phải được override bằng một tuple 10 cấp để toàn bộ `color="blue"`, `c="blue.6"` và component primary hiện có tự đi theo HyperS:
+Mantine `blue` phải được override bằng một tuple 10 cấp để toàn bộ `color="blue"`, `c="blue.6"` và component primary hiện có tự đi theo HyperSol:
 
 `#EEF4FF`, `#D9E7FF`, `#BCD4FF`, `#8FB8FF`, `#5E97FF`, `#337AFF`, `#1264FF`, `#0C55DD`, `#084ABF`, `#063B99`.
 
@@ -127,9 +127,9 @@ Không tải Google Fonts hoặc font CDN. Giữ font system/Mantine hiện tạ
 
 ### 5.3 Logo
 
-- Header lockup: logo mark + word `HyperS`.
-- Auth lockup: logo mark + word `HyperS`, lớn hơn header.
-- Logo phải có `aria-label="HyperS"`; image trang trí bên trong có `alt=""` nếu parent đã có accessible name.
+- Header lockup: logo mark + word `HyperSol`.
+- Auth lockup: logo mark + word `HyperSol`, lớn hơn header.
+- Logo phải có `aria-label="HyperSol"`; image trang trí bên trong có `alt=""` nếu parent đã có accessible name.
 - Giữ đúng tỷ lệ `655:807`, dùng `object-fit: contain`.
 - Tạo favicon từ logo trên canvas vuông trong suốt với padding đồng đều; không kéo méo.
 - Không dùng lại component `<Logo>` của `@medplum/react` ở bất kỳ UI surface nào.
@@ -144,10 +144,10 @@ Không tải Google Fonts hoặc font CDN. Giữ font system/Mantine hiện tạ
 
 ### 5.5 Hình ảnh bên thứ ba
 
-- `public/img/integrations/*` là logo của các vendor, không phải logo Medplum. Không recolor, không thay tên và không dùng làm logo HyperS.
+- `public/img/integrations/*` là logo của các vendor, không phải logo Medplum. Không recolor, không thay tên và không dùng làm logo HyperSol.
 - Chỉ giữ vendor logo nơi nó trực tiếp định danh một integration card.
 - Cụm logo trang trí trong Get Started hiện dùng nhiều vendor logo để marketing. Xóa cụm trang trí này hoặc thay bằng bố cục icon Tabler trung tính; không tạo ảnh minh họa mới.
-- `OpenAILogo` chỉ được giữ tại model selector/AI feature thực tế; không dùng ở vùng thương hiệu HyperS.
+- `OpenAILogo` chỉ được giữ tại model selector/AI feature thực tế; không dùng ở vùng thương hiệu HyperSol.
 
 ## 6. Ma trận file và chỉ đạo thay đổi
 
@@ -157,30 +157,30 @@ Line number bên dưới là anchor theo source tại thời điểm bàn giao; 
 
 | File/vị trí | Chỉ đạo |
 |---|---|
-| `src/brand/brand.ts` | Tạo constant duy nhất cho `name: 'HyperS'`, `productTitle: 'HyperS Clinical Management'`, palette, metadata color và các copy brand dùng lại. Không thêm runtime config/multi-tenant abstraction. |
+| `src/brand/brand.ts` | Tạo constant duy nhất cho `name: 'HyperSol'`, `productTitle: 'HyperSol Clinical Management'`, palette, metadata color và các copy brand dùng lại. Không thêm runtime config/multi-tenant abstraction. |
 | `src/brand/theme.ts` | Xuất Mantine theme dựa trên cấu hình typography hiện có trong `main.tsx`; override tuple `blue`, `primaryColor: 'blue'`, radius và shadow nhẹ. |
-| `src/brand/HyperSLogo.tsx` | Tạo component lockup có prop tối thiểu `size` và `withWordmark`; render asset local, đúng tỷ lệ và accessible name. |
-| `src/brand/HyperSLogo.module.css` | Chỉ chứa layout/logo sizing/wordmark; không dựng lại toàn bộ theme ở đây. |
-| `public/brand/hypers-mark.png` | Bản web-optimized từ logo đã duyệt, nền trong suốt, không méo. |
-| `public/favicon.ico` | Ghi đè favicon Medplum bằng favicon HyperS nhiều kích thước nếu tool hỗ trợ. |
+| `src/brand/HyperSolLogo.tsx` | Tạo component lockup có prop tối thiểu `size` và `withWordmark`; render asset local, đúng tỷ lệ và accessible name. |
+| `src/brand/HyperSolLogo.module.css` | Chỉ chứa layout/logo sizing/wordmark; không dựng lại toàn bộ theme ở đây. |
+| `public/brand/hypersol-mark.png` | Bản web-optimized từ logo đã duyệt, nền trong suốt, không méo. |
+| `public/favicon.ico` | Ghi đè favicon Medplum bằng favicon HyperSol nhiều kích thước nếu tool hỗ trợ. |
 | `public/apple-touch-icon.png` | Tạo icon vuông 180x180 có transparent padding; chỉ thêm nếu `index.html` khai báo nó. |
-| `docs/branding/HYPERS_BRAND.md` | Ghi token, asset source, rule logo, policy link/image và phạm vi light-only để lần sửa sau không phân kỳ. |
+| `docs/branding/HYPERSOL_BRAND.md` | Ghi token, asset source, rule logo, policy link/image và phạm vi light-only để lần sửa sau không phân kỳ. |
 
 ### 6.2 Theme và application shell
 
 | File/anchor hiện tại | Thay đổi bắt buộc |
 |---|---|
-| `src/main.tsx:24-41` — `createTheme` | Chuyển theme sang `src/brand/theme.ts`; bảo toàn font size/headings hiện có. MantineProvider phải dùng theme HyperS và khóa light color scheme bằng API Mantine 8 phù hợp. |
-| `src/index.css` | Thêm CSS variables `--hypers-*`, body/surface/border/focus rules tối thiểu. Không override rộng làm hỏng layout của `@medplum/react`. |
-| `src/App.tsx:5-6, 125-128` — import và `AppShell.logo` | Bỏ import `Logo`; dùng `<HyperSLogo size={28} withWordmark />`. Không đổi menu, route, spotlight hoặc auth logic. |
+| `src/main.tsx:24-41` — `createTheme` | Chuyển theme sang `src/brand/theme.ts`; bảo toàn font size/headings hiện có. MantineProvider phải dùng theme HyperSol và khóa light color scheme bằng API Mantine 8 phù hợp. |
+| `src/index.css` | Thêm CSS variables `--hypersol-*`, body/surface/border/focus rules tối thiểu. Không override rộng làm hỏng layout của `@medplum/react`. |
+| `src/App.tsx:5-6, 125-128` — import và `AppShell.logo` | Bỏ import `Logo`; dùng `<HyperSolLogo size={28} withWordmark />`. Không đổi menu, route, spotlight hoặc auth logic. |
 | `src/App.tsx:29` — `medplum-provider-setup-completed` | Giữ nguyên key để không làm reset trạng thái onboarding của người dùng; đây là storage key nội bộ, không hiển thị. |
 
 ### 6.3 Browser metadata và external runtime dependency
 
 | File/anchor hiện tại | Thay đổi bắt buộc |
 |---|---|
-| `index.html:6` | `<title>HyperS Clinical Management</title>`. |
-| `index.html:7` | Trỏ favicon HyperS; thêm apple touch icon nếu asset đã tạo. |
+| `index.html:6` | `<title>HyperSol Clinical Management</title>`. |
+| `index.html:7` | Trỏ favicon HyperSol; thêm apple touch icon nếu asset đã tạo. |
 | `index.html` phần `<head>` | Thêm `application-name` và `theme-color=#1264FF`; description ngắn bằng tiếng Anh. |
 | `index.html:11` | Xóa script `https://accounts.google.com/gsi/client`. Google client ID đang rỗng và script này tạo network request ngoài local ngay khi tải trang. |
 
@@ -188,8 +188,8 @@ Line number bên dưới là anchor theo source tại thời điểm bàn giao; 
 
 | File/anchor hiện tại | Thay đổi bắt buộc |
 |---|---|
-| `src/pages/SignInPage.tsx:4, 26-29` | Bỏ `Logo` của Medplum; dùng HyperS lockup. Copy thành `Sign in to HyperS`. Giữ `SignInForm`, callback và route. |
-| `src/pages/RegisterPage.tsx:4, 45-48` | Bỏ `Logo`; dùng HyperS lockup. Copy thành `Create your HyperS account`. Giữ logic enable/disable và submit hiện tại. |
+| `src/pages/SignInPage.tsx:4, 26-29` | Bỏ `Logo` của Medplum; dùng HyperSol lockup. Copy thành `Sign in to HyperSol`. Giữ `SignInForm`, callback và route. |
+| `src/pages/RegisterPage.tsx:4, 45-48` | Bỏ `Logo`; dùng HyperSol lockup. Copy thành `Create your HyperSol account`. Giữ logic enable/disable và submit hiện tại. |
 | `src/pages/SignInPage.test.tsx` | Cập nhật expected copy/logo; line hiện tại khoảng 93 còn assert `Get Started with Medplum Provider`. Thêm assertion không có chữ Medplum trong rendered auth/onboarding flow. |
 | `src/pages/RegisterPage.test.tsx`, `src/pages/resource/ResourcePage.test.tsx` | Chạy lại sau khi bỏ Medplum `<Logo>`; baseline cho thấy các case fail do `MEDPLUM_LOGO_URL`. Chỉ sửa test nếu expected copy/logo thay đổi, không nới assertion nghiệp vụ. |
 
@@ -200,9 +200,9 @@ Không sửa `@medplum/react` package. Nếu `SignInForm`/`RegisterForm` tự re
 | File/anchor hiện tại | Thay đổi bắt buộc |
 |---|---|
 | `src/pages/getstarted/GetStartedPage.tsx:149-155` | Xóa stack vendor logo chỉ dùng trang trí; giữ vendor assets cho integration cards thực tế. |
-| `GetStartedPage.tsx:163-184` | `Get Started with HyperS`; bỏ đoạn pricing/subscription và `support@medplum.com`. Viết lại ngắn: giới thiệu các bước cấu hình demo local, không hứa dịch vụ trả phí. |
-| `GetStartedPage.tsx:472-668` | Đổi copy Medplum sang HyperS. Giữ cấu trúc 4 nhóm nội dung nhưng bỏ toàn bộ `component="a"`, `href`, `target` và external-link icon. Render title/list tĩnh với badge `Coming soon` vì HyperS docs chưa được xây. |
-| `GetStartedPage.tsx:671-740` | Bỏ Discord Medplum và mailto Medplum. Thay bằng một card `HyperS Support` không tương tác, copy `Support channels are coming soon.` và disabled button `Coming soon`, hoặc bỏ toàn bộ section nếu bố cục sạch hơn. |
+| `GetStartedPage.tsx:163-184` | `Get Started with HyperSol`; bỏ đoạn pricing/subscription và `support@medplum.com`. Viết lại ngắn: giới thiệu các bước cấu hình demo local, không hứa dịch vụ trả phí. |
+| `GetStartedPage.tsx:472-668` | Đổi copy Medplum sang HyperSol. Giữ cấu trúc 4 nhóm nội dung nhưng bỏ toàn bộ `component="a"`, `href`, `target` và external-link icon. Render title/list tĩnh với badge `Coming soon` vì HyperSol docs chưa được xây. |
+| `GetStartedPage.tsx:671-740` | Bỏ Discord Medplum và mailto Medplum. Thay bằng một card `HyperSol Support` không tương tác, copy `Support channels are coming soon.` và disabled button `Coming soon`, hoặc bỏ toàn bộ section nếu bố cục sạch hơn. |
 | Imports đầu file | Xóa icon/import chỉ phục vụ external link/vendor collage sau khi UI được giản lược. Giữ `MedplumLink` vì đó là component navigation nội bộ, không phải logo/link Medplum ngoài. |
 
 ### 6.6 Docs links và release banner
@@ -212,18 +212,18 @@ Không sửa `@medplum/react` package. Nếu `SignInForm`/`RegisterForm` tự re
 | `src/components/DocsLink.tsx:1-22` | Xóa component sau khi đã bỏ mọi caller. Không biến nó thành link rỗng. |
 | `src/components/ReleaseStageBanner.tsx:4-8, 28-30` | Bỏ `DocsLink`, external-link icon và button docs; giữ badge Alpha/Beta cùng nội dung cảnh báo. |
 | `src/pages/schedule/ScheduleSettingsPage.tsx:40, 126` | Bỏ import/usage `DocsLink`; giữ câu hướng dẫn dưới dạng text thường: `configuring scheduling`. |
-| `src/components/ReleaseStageBanner.module.css:13,17` | Đổi violet token sang blue token HyperS tương ứng; bảo đảm contrast của pill và text. |
+| `src/components/ReleaseStageBanner.module.css:13,17` | Đổi violet token sang blue token HyperSol tương ứng; bảo đảm contrast của pill và text. |
 
 ### 6.7 Các chuỗi và CTA Medplum khác
 
 | File/anchor hiện tại | Thay đổi bắt buộc |
 |---|---|
 | `src/pages/integrations/IntegrationsPage.tsx:202-203` | Xóa body `Hello Medplum team` và `mailto:hello@medplum.com`. CTA request integration phải disabled/`Coming soon`; không mở mail client. Cập nhật test tại `IntegrationsPage.test.tsx:112,173`. |
-| `src/pages/smart/SmartHealthLinkImportPage.tsx:63` | Đổi fallback hiển thị từ `Medplum Provider` thành `HyperS`. Không đổi logic `medplum.getProject()`. |
-| `README.md` | Viết lại thành README HyperS: mục tiêu demo, prerequisites, local run, port, account setup, kiểm tra, giới hạn terminology local. Xóa marketing/docs/Discord/pricing links Medplum khỏi README chính. |
+| `src/pages/smart/SmartHealthLinkImportPage.tsx:63` | Đổi fallback hiển thị từ `Medplum Provider` thành `HyperSol`. Không đổi logic `medplum.getProject()`. |
+| `README.md` | Viết lại thành README HyperSol: mục tiêu demo, prerequisites, local run, port, account setup, kiểm tra, giới hạn terminology local. Xóa marketing/docs/Discord/pricing links Medplum khỏi README chính. |
 | `NOTICE.md` — thêm mới | Ghi rõ source được phát triển từ Medplum Provider 5.1.29 / commit `ad8451d`, giữ Apache-2.0 attribution và chỉ rõ dependency/runtime upstream. File này là tài liệu kỹ thuật, không render trong UI. |
 | `LICENSE.txt` | Giữ nguyên hoàn toàn. Không xóa copyright header `Medplum contributors` khỏi source hiện có. |
-| `package.json:2` | Đổi package name thành `hypers-clinical-management`; version sản phẩm bắt đầu `0.1.0`. Giữ nguyên dependency `@medplum/*`. |
+| `package.json:2` | Đổi package name thành `hypersol-clinical-management`; version sản phẩm bắt đầu `0.1.0`. Giữ nguyên dependency `@medplum/*`. |
 | `eslint.config.mjs` — thêm mới | Dùng đúng hai statement: `import { medplumEslintConfig } from '@medplum/eslint-config';` và `export default medplumEslintConfig;`. Đây là flat config ESLint 9 mà package đã cung cấp; không viết rule set mới và không disable rule để lấy CI xanh. |
 
 ### 6.8 Baseline test-harness repair có giới hạn
@@ -240,11 +240,11 @@ Không sửa test khác ngoài các expected value bị đổi bởi brand. Sau 
 
 ### 6.9 Purple/violet sweep
 
-Thay explicit violet/purple bằng `blue`/HyperS token nhưng giữ ý nghĩa trạng thái:
+Thay explicit violet/purple bằng `blue`/HyperSol token nhưng giữ ý nghĩa trạng thái:
 
 | File/anchor hiện tại | Thay đổi |
 |---|---|
-| `src/components/meds/MedListItem.tsx:48` | Badge violet → HyperS blue. |
+| `src/components/meds/MedListItem.tsx:48` | Badge violet → HyperSol blue. |
 | `src/components/spaces/SpacesInbox.tsx:502,505,540,543,581,584` | ThemeIcon/Text violet → blue shades từ theme. |
 | `src/components/spaces/ResourceBox.tsx:76,80` | ThemeIcon/Text violet → blue. |
 | `src/components/encounter/ClaimSubmittedPanel.tsx:155` | Status color return `violet` → `blue`, không đổi status mapping/logic. |
@@ -275,18 +275,18 @@ Thực hiện trước khi sửa code, từ thư mục `medplum-provider`:
 2. `git remote rename origin upstream`.
 3. `git remote add origin https://github.com/DinhLucent/hyperS-clinical-managerment.git`.
 4. Xác minh `git remote -v`; không thay URL upstream.
-5. Vì remote HyperS đang rỗng, push baseline chưa rebrand bằng `git push -u origin main`. Dirty working tree không ngăn push commit baseline `ad8451d`.
-6. Tạo nhánh `git switch -c codex/hypers-white-label`; các thay đổi local hiện có phải đi theo nhánh.
+5. Vì remote HyperSol đang rỗng, push baseline chưa rebrand bằng `git push -u origin main`. Dirty working tree không ngăn push commit baseline `ad8451d`.
+6. Làm việc trên nhánh kế nhiệm `codex/hypersol-white-label-fixes`; các thay đổi local hiện có phải đi theo nhánh.
 7. Không commit secret. Không push nếu remote bỗng không còn rỗng hoặc `main` đã có lịch sử khác.
 
 Commit đề xuất:
 
-1. `chore: establish HyperS local development baseline`
-2. `feat: add HyperS brand foundation`
+1. `chore: establish HyperSol local development baseline`
+2. `feat: add HyperSol brand foundation`
 3. `feat: white-label Provider surfaces`
 4. `test: add brand audit and CI verification`
 
-Một pull request duy nhất từ `codex/hypers-white-label` vào `main`. Không squash bắt buộc trước review; lịch sử từng phase giúp rollback.
+Mở pull request từ `codex/hypersol-white-label-fixes` vào `main`. Không squash bắt buộc trước review; lịch sử từng phase giúp rollback.
 
 ### 7.2 Environment
 
@@ -302,7 +302,7 @@ Một pull request duy nhất từ `codex/hypers-white-label` vào `main`. Khôn
 
 - Tạo `infra/local/docker-compose.yml` bằng cách sao chép file hiện có từ thư mục cha; không move và không xóa source.
 - Giữ compose project name/volume identifiers hiện tại để không tạo volume trống mới hoặc làm mất liên kết tới dữ liệu demo đang có.
-- Đổi `MEDPLUM_SUPPORT_EMAIL` thành một giá trị HyperS local, ví dụ `"HyperS" <support@hypers.local>`; key môi trường vẫn giữ nguyên.
+- Đổi `MEDPLUM_SUPPORT_EMAIL` thành một giá trị HyperSol local, ví dụ `"HyperSol" <support@hypersol.local>`; key môi trường vẫn giữ nguyên.
 - Giữ service `medplum-app` và cấu hình auth hiện tại để không tạo rủi ro ngoài phạm vi. README đánh dấu port 3002 là operator-only; Provider không được link tới port này và khách hàng không được dùng nó trong demo.
 - Không đổi Docker image name chỉ để white-label. Đây là implementation detail, không phải UI.
 - Chạy `docker compose -f infra/local/docker-compose.yml config` trước khi up.
@@ -342,7 +342,7 @@ Checkpoint: các lệnh brand audit ở mục Verification không còn user-faci
 
 1. Đưa Compose vào `infra/local` và chỉ cập nhật support identity; giữ service topology/auth hiện tại.
 2. Cập nhật `.env.defaults`, `.gitignore`, lockfile, package metadata.
-3. Viết README HyperS, NOTICE và brand guide.
+3. Viết README HyperSol, NOTICE và brand guide.
 4. Thêm CI.
 
 ### Phase 4 — Verification, commit và push
@@ -357,8 +357,8 @@ Checkpoint: các lệnh brand audit ở mục Verification không còn user-faci
 
 ### Tests tối thiểu
 
-- Test `HyperSLogo`: accessible name `HyperS`, đúng asset path, wordmark behavior.
-- Cập nhật auth/onboarding tests để expected copy là HyperS.
+- Test `HyperSolLogo`: accessible name `HyperSol`, đúng asset path, wordmark behavior.
+- Cập nhật auth/onboarding tests để expected copy là HyperSol.
 - Cập nhật Integrations tests: CTA không còn mailto Medplum và thể hiện `Coming soon`/disabled state.
 - Test ReleaseStageBanner nếu cần để bảo đảm bỏ docs link không làm mất stage/content.
 - Repair bốn ESM-spy failures baseline đúng phạm vi mục 6.8; không thay production code để chiều test.
@@ -399,7 +399,7 @@ Expected: không có output.
 rg -n '<Logo' src --glob '*.tsx'
 ```
 
-Expected: không còn Medplum `<Logo>` usage. `HyperSLogo` không match pattern có dấu `<Logo`.
+Expected: không còn Medplum `<Logo>` usage. `HyperSolLogo` không match pattern có dấu `<Logo`.
 
 ```powershell
 rg -n -i 'violet|purple|magenta' src --glob '!*.test.*'
@@ -429,14 +429,14 @@ Expected: exit code 0 cho từng lệnh. Nếu baseline đã có test failure, P
 
 Khởi động local API/database và Provider; kiểm tra ít nhất:
 
-1. `/signin` — logo/wordmark HyperS, browser title/favicon, không logo Medplum.
-2. `/register` — HyperS copy, registration form không thay behavior.
-3. `/getstarted` — HyperS copy; docs/pricing/support/Discord không còn link hoạt động.
+1. `/signin` — logo/wordmark HyperSol, browser title/favicon, không logo Medplum.
+2. `/register` — HyperSol copy, registration form không thay behavior.
+3. `/getstarted` — HyperSol copy; docs/pricing/support/Discord không còn link hoạt động.
 4. `/Patient` và một patient detail — shell/navigation/focus/primary buttons đúng màu.
 5. `/Spaces/Communication` — không còn violet resource cards.
 6. `/Calendar/Schedule` và một settings page — banner/schedule text không link Medplum.
 7. `/integrations` — vendor cards hiển thị đúng; request CTA không gửi email Medplum.
-8. `/smart-health-link` — fallback product name là HyperS khi project chưa có tên.
+8. `/smart-health-link` — fallback product name là HyperSol khi project chưa có tên.
 
 Viewport screenshots:
 
@@ -462,7 +462,7 @@ Browser/network expected:
 
 Task không có database migration và không được mutate dữ liệu FHIR theo kế hoạch; rollback chủ yếu là code/config:
 
-1. `main` trên HyperS remote phải giữ baseline `ad8451d` chưa rebrand. Nếu nhánh rebrand lỗi trước merge, ngừng dùng nhánh và chạy lại baseline từ `main`.
+1. `main` trên HyperSol remote phải giữ baseline `ad8451d` chưa rebrand. Nếu nhánh rebrand lỗi trước merge, ngừng dùng nhánh và chạy lại baseline từ `main`.
 2. Mỗi phase có commit riêng. Nếu lỗi được phát hiện sau commit/push, dùng `git revert <commit>` theo thứ tự ngược; không force-push và không reset hard.
 3. Docker Compose gốc ở `..\medplum-local-stack\docker-compose.yml` phải được giữ nguyên. Nếu bản copy trong repo không khởi động, quay lại dùng file gốc với cùng compose name/volumes; không chạy `down -v`.
 4. Không rename volume hoặc compose project nên rollback code không đụng database. Xác minh PostgreSQL/Redis health sau khi quay lại.
@@ -476,8 +476,8 @@ Recovery được coi là thành công khi baseline build lại pass, Provider m
 
 Task chỉ hoàn thành khi đồng thời đạt tất cả:
 
-- Repository HyperS có baseline `main`, nhánh `codex/hypers-white-label` và PR chưa merge.
-- Provider tại port 3001 hiển thị HyperS trên toàn bộ smoke surfaces.
+- Repository HyperSol có baseline `main`, nhánh kế nhiệm `codex/hypersol-white-label-fixes` và PR chưa merge.
+- Provider tại port 3001 hiển thị HyperSol trên toàn bộ smoke surfaces.
 - Không còn Medplum logo/favicon, user-facing Medplum copy, Medplum outbound links hoặc violet/purple UI.
 - Technical dependencies/canonical identifiers vẫn nguyên vẹn và clinical flows smoke được.
 - Runtime smoke không gọi Medplum Cloud/Google identity script.
@@ -530,12 +530,12 @@ Khi kết thúc, model triển khai phải báo theo mẫu:
 
 | Assumption/decision | Trạng thái | Điều làm nó mất hiệu lực |
 |---|---|---|
-| HyperS là tên bản demo | User-confirmed | User cung cấp tên sản phẩm mới. |
+| HyperSol là tên bản demo | User-confirmed | User cung cấp tên sản phẩm mới. |
 | `brand-mark.png` là logo đã duyệt | User-confirmed và file verified | User thay logo hoặc asset source không còn đọc được. |
 | CSS landing page là nguồn màu chính | User-confirmed; token đã đọc trực tiếp | User cung cấp brand guideline mới. |
 | App UI tiếp tục bằng tiếng Anh | User-confirmed | Yêu cầu i18n mới; cần plan riêng. |
 | Demo khách hàng chỉ dùng Provider port 3001 | Decision-confirmed | Nếu Admin port 3002 phải customer-facing, kích hoạt STOP condition. |
-| Link Medplum bị xóa; route/docs/support HyperS chưa có dùng `Coming soon` | Decision-confirmed | User cung cấp URL/route HyperS thật. |
+| Link Medplum bị xóa; route/docs/support HyperSol chưa có dùng `Coming soon` | Decision-confirmed | User cung cấp URL/route HyperSol thật. |
 | Vendor logo chỉ giữ khi định danh integration thực tế | Plan decision | Legal/brand team cấm một vendor asset cụ thể. |
 | Rebrand không thay dữ liệu/clinical behavior | Non-negotiable | Bất kỳ yêu cầu behavior/schema mới nào cần task khác. |
 | Registration vẫn hoạt động sau khi thay logo | Chưa verified do baseline auth tests bị `<Logo>` làm fail | Test/runtime sau tracer slice không pass; model phải dừng theo STOP condition nếu public API không cho override. |

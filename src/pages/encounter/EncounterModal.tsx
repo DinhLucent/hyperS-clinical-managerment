@@ -150,7 +150,7 @@ export const EncounterModal = (): JSX.Element => {
                   You can select template for new encounter. Tasks from the template will be automatically added to the
                   encounter. Administrators can create and edit templates in the{' '}
                   <Text component="span" fw={500}>
-                    HyperS workspace
+                    HyperSol workspace
                   </Text>
                   .
                 </Text>

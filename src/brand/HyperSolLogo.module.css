@@ -1,0 +1,31 @@
+.logo {
+  --hypersol-logo-size: 28px;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(var(--hypersol-logo-size) * 0.28);
+  color: var(--hypersol-ink);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mark {
+  display: block;
+  width: auto;
+  height: var(--hypersol-logo-size);
+  aspect-ratio: 655 / 807;
+  object-fit: contain;
+}
+
+.wordmark {
+  color: var(--hypersol-ink);
+  font-size: calc(var(--hypersol-logo-size) * 0.58);
+  font-family: "Segoe UI Variable Display", "Segoe UI", sans-serif;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  text-rendering: geometricPrecision;
+}
+
+.wordmarkAccent {
+  color: var(--hypersol-primary);
+}
