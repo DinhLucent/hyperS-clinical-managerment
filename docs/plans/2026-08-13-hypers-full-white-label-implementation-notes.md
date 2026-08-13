@@ -56,5 +56,6 @@ When the implementation differs from the handoff, append an entry with:
 - Repository-local `frontend-design` and `playwright` skills installed and pinned in `skills-lock.json`.
 - `.gitattributes` enforces LF text files across Windows and Linux; common binary asset formats are marked binary.
 - Runtime smoke check: PASS. API health `http://localhost:8103/healthcheck`, Provider `http://localhost:3001/signin`, and operator-only Admin `http://localhost:3002` all returned HTTP 200; all four Compose services reported healthy.
+- GitHub Actions workflow validation: repository Actions is enabled with `allowed_actions=all`, and the official `rhysd/actionlint` Docker image reports no workflow errors. GitHub still ends both the full workflow and a one-step `echo` control workflow with `startup_failure` before creating any job or log. This is an external account/private-repository Actions restriction, most likely Billing & Licensing or an Actions budget; review the personal account's **Settings > Billing & Licensing > Budgets and alerts** before relying on hosted CI.
 
 Keep appending dated implementation results here. Do not replace the baseline evidence above.
