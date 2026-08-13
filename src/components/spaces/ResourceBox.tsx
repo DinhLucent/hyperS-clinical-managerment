@@ -73,11 +73,11 @@ export function ResourceBox({ resourceReference, onClick }: ResourceBoxProps): J
       data-testid="resource-box"
     >
       <Group gap="sm" wrap="nowrap">
-        <ThemeIcon size="lg" variant="light" color="violet">
+        <ThemeIcon size="lg" variant="light" color="blue">
           <IconFileText size={20} />
         </ThemeIcon>
         <Box className={classes.content}>
-          <Text size="sm" fw={600} c="violet.7">
+          <Text size="sm" fw={600} c="blue.7">
             {resourceType}
           </Text>
           <Text size="xs" c="dimmed" truncate>

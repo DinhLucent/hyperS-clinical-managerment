@@ -29,7 +29,7 @@ export function MessageWithLinks({ content }: MessageWithLinksProps): JSX.Elemen
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        c="#7c3aed"
+        c="var(--hypersol-primary-deep)"
         style={{ fontWeight: 500 }}
       >
         {fullMatch}

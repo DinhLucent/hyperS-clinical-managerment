@@ -112,8 +112,8 @@ export function DoseSpotAdvancedOptions({ patientId }: { patientId: string }): J
             <Box mt="md">
               <Text mb="sm">Medication History Sync</Text>
               <Text c="dimmed" mb="md">
-                Retrieves medication history from DoseSpot for this patient and adds MedicationRequest resources to
-                Medplum.
+                Retrieves medication history from DoseSpot for this patient and adds MedicationRequest resources to the
+                HyperSol workspace.
               </Text>
               <Group align="flex-end">
                 <TextInput
@@ -135,9 +135,9 @@ export function DoseSpotAdvancedOptions({ patientId }: { patientId: string }): J
             <Box mt="md">
               <Text mb="sm">Patient Information Sync</Text>
               <Text c="dimmed" mb="md">
-                Syncs patient between Medplum and DoseSpot. It creates an identifier for the patient in Medplum to link
-                it to the patient's record in DoseSpot. It also adds MedicationRequest and AllergyIntolerance resources
-                from Medplum to that patient's record in DoseSpot.
+                Syncs patient between HyperSol and DoseSpot. It creates an identifier for the patient in HyperSol to link it
+                to the patient's record in DoseSpot. It also adds MedicationRequest and AllergyIntolerance resources
+                from HyperSol to that patient's record in DoseSpot.
               </Text>
               <Button onClick={syncPatient}>Sync Patient</Button>
             </Box>

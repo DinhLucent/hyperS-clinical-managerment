@@ -45,7 +45,7 @@ export function MedListItem(props: MedListItemProps): JSX.Element {
             </Text>
             <Group gap={4}>
               {pendingStatus && (
-                <Badge size="sm" color="violet" variant="light">
+                <Badge size="sm" color="blue" variant="light">
                   ScriptSure: {pendingStatus}
                 </Badge>
               )}

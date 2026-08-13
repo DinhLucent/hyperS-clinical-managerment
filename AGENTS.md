@@ -1,12 +1,12 @@
-# HyperS Clinical Management
+# HyperSol Clinical Management
 
-React 19 + Vite 8 Provider application backed by the self-hosted Medplum 5.1.29 stack. The active product work is a full HyperS white-label pass; clinical behavior and FHIR interoperability must remain unchanged.
+React 19 + Vite 8 Provider application backed by the self-hosted Medplum 5.1.29 stack. The active product work is a full HyperSol white-label pass; clinical behavior and FHIR interoperability must remain unchanged.
 
 ## Active work
 
 - Read `docs/plans/2026-08-13-hypers-full-white-label-handoff.md` completely before implementing the rebrand.
 - Keep `docs/plans/2026-08-13-hypers-full-white-label-implementation-notes.md` current. Record every plan deviation under `## Deviations`.
-- Work on `codex/hypers-white-label`. Open a pull request into `main`; do not merge it as part of implementation.
+- Work on `codex/hypersol-white-label-fixes`. Open a pull request into `main`; do not merge it as part of implementation.
 
 ## Commands
 
@@ -26,19 +26,19 @@ Provider UI is `http://localhost:3001`; local API is `http://localhost:8103`; Ad
 ## Repository boundaries
 
 - This repository root is `medplum-provider`; an unrelated outer Git repository also exists. Confirm `git rev-parse --show-toplevel` ends in `medplum-provider` before any commit or push.
-- `origin` is the private HyperS repository. `upstream` is the Medplum source repository and is read-only for this work.
-- Preserve the user-owned local baseline changes in `.env` and `package.json`.
+- `origin` is the private HyperSol repository. `upstream` is the Medplum source repository and is read-only for this work.
+- Preserve the user-owned `.env` locally and never stage it; only safe defaults belong in the tracked `.env.defaults`. Preserve unrelated user changes in `package.json`.
 - Never run `docker compose down -v`, rename Compose volumes, reset the database, force-push, or rewrite Git history.
 
 ## White-label conventions
 
 - Change only user-visible Medplum branding: rendered logo, favicon, browser metadata, visible copy, outbound docs/pricing/community/support links, and violet/purple presentation colors.
 - Preserve all `@medplum/*` imports, `MedplumClient`/hooks, `MEDPLUM_*` environment keys, Docker image names, SPDX notices, and FHIR `system`/`identifier`/canonical URLs. These are technical contracts, not customer-facing branding.
-- The approved brand name is `HyperS`. Keep the UI in English.
+- The approved brand name is `HyperSol`. Keep the UI in English.
 - Brand reference: `D:\MyProject\my-landingpage`; approved logo: `D:\MyProject\my-landingpage\public\brand-mark.png`.
 - Use the live landing CSS as the color source: primary `#1264FF`, deep primary `#084ABF`, ink `#0B2944`, muted `#5C6F82`, border `#DFE6EE`, soft surface `#F4F7FB`.
 - The demo is light-only. Do not add a multi-brand engine, new font/CDN dependency, cloud deployment, docs backend, or Admin App theme fork.
-- Missing HyperS destinations render as non-interactive content or a genuinely disabled `Coming soon` control. Do not use empty URLs or `href="#"`.
+- Missing HyperSol destinations render as non-interactive content or a genuinely disabled `Coming soon` control. Do not use empty URLs or `href="#"`.
 
 ## Known baseline and corrective actions
 

@@ -4,15 +4,6 @@ import { Flex } from '@mantine/core';
 import type { JSX } from 'react';
 import { IntegrationCard } from '../../components/IntegrationCard';
 
-interface Integration {
-  name: string;
-  tags: string[];
-  description: string;
-  displayUrl: string;
-  url: string;
-  imageUrl: string;
-}
-
 const integrations = [
   {
     name: 'Okta',
@@ -197,12 +188,6 @@ const integrations = [
 ];
 
 export function IntegrationsPage(): JSX.Element {
-  function requestIntegration(integration: Integration): void {
-    const subject = `Integration Request: ${integration.name}`;
-    const body = `Hello Medplum team,\n\nI would like to request an integration with ${integration.name}.\n\nHere are the details:\n\nName: ${integration.name}\nDescription: ${integration.description}\nURL: ${integration.url}\n\nThank you!`;
-    window.location.href = `mailto:hello@medplum.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
-
   return (
     <Flex mih={50} gap="md" justify="center" align="flex-end" direction="row" wrap="wrap" m="xl">
       {integrations.map((i) => (
@@ -214,7 +199,6 @@ export function IntegrationsPage(): JSX.Element {
           tags={i.tags}
           description={i.description}
           imageUrl={`/img/integrations/${i.imageUrl}`}
-          onClick={() => requestIntegration(i)}
         />
       ))}
     </Flex>

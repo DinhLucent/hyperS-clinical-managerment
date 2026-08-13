@@ -1,6 +1,6 @@
 {
-  "name": "medplum-provider",
-  "version": "5.1.29",
+  "name": "hypersol-clinical-management",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {

@@ -3,7 +3,7 @@
 import { getReferenceString } from '@medplum/core';
 import { useDoseSpotNotifications } from '@medplum/dosespot-react';
 import type { SpotlightLinkAction } from '@medplum/react';
-import { AppShell, Loading, Logo, useMedplum, useMedplumProfile } from '@medplum/react';
+import { Loading, useMedplum, useMedplumProfile } from '@medplum/react';
 import {
   IconApps,
   IconBook2,
@@ -20,6 +20,7 @@ import {
 import type { JSX } from 'react';
 import { Suspense, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router';
+import { HyperSolAppShell } from './components/HyperSolAppShell';
 import { TaskDetailsModal } from './components/tasks/TaskDetailsModal';
 import { hasScriptSureIdentifier } from './components/utils';
 import { useDoseSpotAccess } from './hooks/useDoseSpotAccess';
@@ -123,12 +124,9 @@ export function App(): JSX.Element | null {
   }
 
   const appShellContent = (
-    <AppShell
-      logo={<Logo size={24} />}
+    <HyperSolAppShell
       pathname={location.pathname}
       searchParams={searchParams}
-      layoutVersion="v2"
-      showLayoutVersionToggle={false}
       menus={
         profile
           ? [
@@ -206,8 +204,6 @@ export function App(): JSX.Element | null {
             ]
           : undefined
       }
-      resourceTypeSearchDisabled={true}
-      spotlightPatientsOnly={true}
       spotlightActions={spotlightActions}
     >
       <Suspense fallback={<Loading />}>
@@ -313,7 +309,7 @@ export function App(): JSX.Element | null {
           )}
         </Routes>
       </Suspense>
-    </AppShell>
+    </HyperSolAppShell>
   );
 
   return hasScriptSure ? <ScriptSurePracticeProvider>{appShellContent}</ScriptSurePracticeProvider> : appShellContent;

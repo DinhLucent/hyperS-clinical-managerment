@@ -11,6 +11,12 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# Local configuration and browser-QA artifacts
+.env
+.playwright-cli/
+output/playwright/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

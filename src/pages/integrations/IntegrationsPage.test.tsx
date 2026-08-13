@@ -1,41 +1,10 @@
 // SPDX-FileCopyrightText: Copyright Orangebot, Inc. and Medplum contributors
 // SPDX-License-Identifier: Apache-2.0
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { fireEvent, render, screen } from '../../test-utils/render';
+import { describe, expect, test } from 'vitest';
+import { render, screen } from '../../test-utils/render';
 import { IntegrationsPage } from './IntegrationsPage';
 
 describe('IntegrationsPage', () => {
-  let mockLocationHref: string;
-  const originalLocation = window.location;
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-
-    // Mock window.location.href
-    mockLocationHref = '';
-    Object.defineProperty(window, 'location', {
-      value: {
-        ...originalLocation,
-        get href() {
-          return mockLocationHref;
-        },
-        set href(value: string) {
-          mockLocationHref = value;
-        },
-      },
-      writable: true,
-      configurable: true,
-    });
-  });
-
-  afterEach(() => {
-    Object.defineProperty(window, 'location', {
-      value: originalLocation,
-      writable: true,
-      configurable: true,
-    });
-  });
-
   function setup(): void {
     render(<IntegrationsPage />);
   }
@@ -95,89 +64,14 @@ describe('IntegrationsPage', () => {
     expect(screen.getAllByText('Scheduling').length).toBeGreaterThan(0);
   });
 
-  test('Renders Request Integration buttons for all integrations', () => {
+  test('Renders disabled Coming soon buttons for all integrations', () => {
     setup();
 
-    // There should be 22 integration cards, each with a "Request Integration" button
-    const requestButtons = screen.getAllByRole('button', { name: 'Request Integration' });
-    expect(requestButtons.length).toBe(22);
-  });
-
-  test('Clicking Request Integration opens mailto link with correct subject', () => {
-    setup();
-
-    const oktaButton = screen.getAllByRole('button', { name: 'Request Integration' })[0];
-    fireEvent.click(oktaButton);
-
-    expect(mockLocationHref).toContain('mailto:hello@medplum.com');
-    expect(mockLocationHref).toContain('subject=');
-    expect(decodeURIComponent(mockLocationHref)).toContain('Integration Request: Okta');
-  });
-
-  test('Clicking Request Integration opens mailto link with correct body', () => {
-    setup();
-
-    const oktaButton = screen.getAllByRole('button', { name: 'Request Integration' })[0];
-    fireEvent.click(oktaButton);
-
-    const decodedHref = decodeURIComponent(mockLocationHref);
-    expect(decodedHref).toContain('Hello Medplum team');
-    expect(decodedHref).toContain('I would like to request an integration with Okta');
-    expect(decodedHref).toContain('Name: Okta');
-    expect(decodedHref).toContain(
-      'Description: Implement SSO for healthcare staff with HIPAA-compliant authentication protocols.'
-    );
-    expect(decodedHref).toContain('URL: https://www.okta.com');
-    expect(decodedHref).toContain('Thank you!');
-  });
-
-  test('Clicking different integration opens mailto with correct integration details', () => {
-    setup();
-
-    // Find Health Gorilla button (should be one of the later ones)
-    const buttons = screen.getAllByRole('button', { name: 'Request Integration' });
-    const healthGorillaButton = buttons.find((button) => {
-      const card = button.closest('[class*="Paper"]');
-      return card?.textContent?.includes('Health Gorilla');
-    });
-
-    expect(healthGorillaButton).toBeDefined();
-
-    if (healthGorillaButton) {
-      fireEvent.click(healthGorillaButton);
-
-      const decodedHref = decodeURIComponent(mockLocationHref);
-      expect(decodedHref).toContain('Integration Request: Health Gorilla');
-      expect(decodedHref).toContain('I would like to request an integration with Health Gorilla');
-      expect(decodedHref).toContain('Name: Health Gorilla');
-      expect(decodedHref).toContain('URL: https://www.healthgorilla.com');
-    }
-  });
-
-  test('Mailto link properly encodes special characters', () => {
-    setup();
-
-    // Find an integration with special characters in description
-    const buttons = screen.getAllByRole('button', { name: 'Request Integration' });
-    const microsoftButton = buttons.find((button) => {
-      const card = button.closest('[class*="Paper"]');
-      return card?.textContent?.includes('Microsoft Entra SSO');
-    });
-
-    expect(microsoftButton).toBeDefined();
-
-    if (microsoftButton) {
-      fireEvent.click(microsoftButton);
-
-      // The URL should be properly encoded
-      expect(mockLocationHref).toContain('mailto:hello@medplum.com');
-      expect(mockLocationHref).toContain('subject=');
-      expect(mockLocationHref).toContain('body=');
-
-      // Decoded should contain the correct content
-      const decodedHref = decodeURIComponent(mockLocationHref);
-      expect(decodedHref).toContain("Integrate Microsoft's identity platform");
-    }
+    const comingSoonButtons = screen.getAllByRole('button', { name: 'Coming soon' });
+    expect(comingSoonButtons).toHaveLength(22);
+    expect(comingSoonButtons.every((button) => (button as HTMLButtonElement).disabled)).toBe(true);
+    expect(document.querySelectorAll('a[href^="mailto:"]')).toHaveLength(0);
+    expect(screen.queryByText(/Medplum/i)).not.toBeInTheDocument();
   });
 
   test('Renders integration display URLs', () => {

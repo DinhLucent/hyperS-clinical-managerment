@@ -1,0 +1,63 @@
+.authPage {
+  --auth-card-width: 400px;
+  display: grid;
+  min-height: 100dvh;
+  padding: clamp(2rem, 8vh, 5rem) 1rem calc(2rem + env(safe-area-inset-bottom));
+  place-items: start center;
+  background: var(--hypersol-soft-surface);
+}
+
+.authPage > :global(.mantine-Container-root) {
+  width: var(--auth-card-width);
+  max-width: 100%;
+  padding-inline: 0;
+}
+
+.authPage :global(.mantine-Paper-root) {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--hypersol-border);
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(8, 74, 191, 0.1);
+}
+
+.authPageWide {
+  --auth-card-width: 460px;
+}
+
+.authPage :global(.mantine-Title-root) {
+  max-width: 22ch;
+  color: var(--hypersol-ink-deep);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.authPage :global(.mantine-Input-input) {
+  border-color: #cfd9e5;
+  border-radius: 10px;
+}
+
+.authPage :global(.mantine-Button-root) {
+  border-radius: 10px;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 35em) {
+  .authPage {
+    padding-top: 1rem;
+    padding-inline: 0.75rem;
+  }
+
+  .authPage :global(.mantine-Paper-root) {
+    border-radius: 14px;
+  }
+
+  .authPage > :global(.mantine-Container-root) {
+    width: 100%;
+    max-width: none;
+  }
+}

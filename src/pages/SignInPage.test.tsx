@@ -30,7 +30,8 @@ describe('SignInPage', () => {
   });
 
   function expectSigninPageRendered(): void {
-    expect(screen.getByText('Sign in to Provider')).toBeInTheDocument();
+    expect(screen.getByText('Sign in to HyperSol')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'HyperSol' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument();
   }
 
@@ -90,6 +91,7 @@ describe('SignInPage', () => {
     });
 
     // After successful sign-in, user is redirected to /getstarted
-    expect(await screen.findByText('Get Started with Medplum Provider')).toBeInTheDocument();
+    expect(await screen.findByText('Get Started with HyperSol')).toBeInTheDocument();
+    expect(screen.queryByText(/Medplum/i)).not.toBeInTheDocument();
   });
 });
