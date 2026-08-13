@@ -9,21 +9,21 @@ import { defineConfig } from 'vitest/config';
 
 dns.setDefaultResultOrder('verbatim');
 
-if (!existsSync(path.join(__dirname, '.env'))) {
-  copyFileSync(path.join(__dirname, '.env.defaults'), path.join(__dirname, '.env'));
+if (!existsSync(path.join(import.meta.dirname, '.env'))) {
+  copyFileSync(path.join(import.meta.dirname, '.env.defaults'), path.join(import.meta.dirname, '.env'));
 }
 
 // Resolve aliases to local packages when working within the monorepo
 const alias: NonNullable<UserConfig['resolve']>['alias'] = Object.fromEntries(
   Object.entries({
-    '@medplum/core': path.resolve(__dirname, '../../packages/core/src'),
-    '@medplum/dosespot-react': path.resolve(__dirname, '../../packages/dosespot-react/src'),
-    '@medplum/scriptsure-react': path.resolve(__dirname, '../../packages/scriptsure-react/src'),
-    '@medplum/react': path.resolve(__dirname, '../../packages/react/src'),
-    '@medplum/react-scheduling': path.resolve(__dirname, '../../packages/react-scheduling/src'),
-    '@medplum/react-hooks': path.resolve(__dirname, '../../packages/react-hooks/src'),
-    '@medplum/health-gorilla-core': path.resolve(__dirname, '../../packages/health-gorilla-core/src'),
-    '@medplum/health-gorilla-react': path.resolve(__dirname, '../../packages/health-gorilla-react/src'),
+    '@medplum/core': path.resolve(import.meta.dirname, '../../packages/core/src'),
+    '@medplum/dosespot-react': path.resolve(import.meta.dirname, '../../packages/dosespot-react/src'),
+    '@medplum/scriptsure-react': path.resolve(import.meta.dirname, '../../packages/scriptsure-react/src'),
+    '@medplum/react': path.resolve(import.meta.dirname, '../../packages/react/src'),
+    '@medplum/react-scheduling': path.resolve(import.meta.dirname, '../../packages/react-scheduling/src'),
+    '@medplum/react-hooks': path.resolve(import.meta.dirname, '../../packages/react-hooks/src'),
+    '@medplum/health-gorilla-core': path.resolve(import.meta.dirname, '../../packages/health-gorilla-core/src'),
+    '@medplum/health-gorilla-react': path.resolve(import.meta.dirname, '../../packages/health-gorilla-react/src'),
   }).filter(([, relPath]) => existsSync(relPath))
 );
 
@@ -45,13 +45,16 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    // Keep CPU-heavy, fully inlined Medplum tests deterministic on local and
+    // two-core GitHub runners. Higher worker counts caused unrelated timeouts.
+    maxWorkers: 2,
     setupFiles: './src/test.setup.ts',
     server: {
       deps: {
-        // react-router v8 is ESM-only, so Vitest externalizes it and its export
-        // namespace is frozen. Inlining routes it through Vite's transform,
-        // which restores `vi.spyOn(reactRouter, ...)` in tests.
-        inline: ['react-router'],
+        // These packages are ESM-only. Vitest otherwise externalizes them, which
+        // freezes their namespace exports (breaking vi.spyOn) and skips Vite's
+        // import.meta.env transform in the upstream Logo component.
+        inline: ['react-router', '@mantine/notifications', /@medplum\//],
       },
     },
   },
