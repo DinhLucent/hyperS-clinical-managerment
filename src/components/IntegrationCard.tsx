@@ -12,7 +12,6 @@ export interface IntegrationCardProps {
   readonly tags: string[];
   readonly description: string;
   readonly imageUrl: string;
-  readonly onClick: () => void;
 }
 
 export function IntegrationCard(props: IntegrationCardProps): JSX.Element {
@@ -54,8 +53,8 @@ export function IntegrationCard(props: IntegrationCardProps): JSX.Element {
       <Text fz="sm" mt="sm" h={80}>
         {props.description}
       </Text>
-      <Button variant="default" fullWidth mt="md" onClick={props.onClick}>
-        Request Integration
+      <Button variant="light" fullWidth mt="md" disabled>
+        Coming soon
       </Button>
     </Paper>
   );

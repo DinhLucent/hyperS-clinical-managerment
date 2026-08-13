@@ -499,10 +499,10 @@ export function SpacesInbox(props: SpaceInboxProps): JSX.Element {
                             }}
                           >
                             <Group gap="sm" wrap="nowrap">
-                              <ThemeIcon size="lg" variant="light" color="violet">
+                              <ThemeIcon size="lg" variant="light" color="blue">
                                 <IconCode size={20} />
                               </ThemeIcon>
-                              <Text size="sm" fw={600} c="violet.7">
+                              <Text size="sm" fw={600} c="blue.7">
                                 View Component
                               </Text>
                             </Group>
@@ -537,10 +537,10 @@ export function SpacesInbox(props: SpaceInboxProps): JSX.Element {
                               }}
                             >
                               <Group gap="sm" wrap="nowrap">
-                                <ThemeIcon size="lg" variant="light" color="violet">
+                                <ThemeIcon size="lg" variant="light" color="blue">
                                   <IconList size={20} />
                                 </ThemeIcon>
-                                <Text size="sm" fw={600} c="violet.7">
+                                <Text size="sm" fw={600} c="blue.7">
                                   {message.resources.length} results
                                 </Text>
                               </Group>
@@ -578,10 +578,10 @@ export function SpacesInbox(props: SpaceInboxProps): JSX.Element {
                           }}
                         >
                           <Group gap="sm" wrap="nowrap">
-                            <ThemeIcon size="lg" variant="light" color="violet">
+                            <ThemeIcon size="lg" variant="light" color="blue">
                               <IconCode size={20} />
                             </ThemeIcon>
-                            <Text size="sm" fw={600} c="violet.7">
+                            <Text size="sm" fw={600} c="blue.7">
                               Generating component...
                             </Text>
                           </Group>

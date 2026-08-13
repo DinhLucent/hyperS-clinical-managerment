@@ -1,0 +1,25 @@
+.logo {
+  --hypers-logo-size: 28px;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: calc(var(--hypers-logo-size) * 0.28);
+  color: var(--hypers-ink);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mark {
+  display: block;
+  width: auto;
+  height: var(--hypers-logo-size);
+  aspect-ratio: 655 / 807;
+  object-fit: contain;
+}
+
+.wordmark {
+  color: var(--hypers-ink);
+  font-size: calc(var(--hypers-logo-size) * 0.58);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}

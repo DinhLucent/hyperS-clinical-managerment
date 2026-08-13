@@ -6,7 +6,7 @@
   --icon-secondary: var(--mantine-color-gray-5);
 }
 
-[data-mantine-color-scheme="dark"] .page {
+[data-mantine-color-scheme='dark'] .page {
   --text-secondary: var(--mantine-color-gray-5);
   --text-label: var(--mantine-color-gray-5);
   --icon-secondary: var(--mantine-color-gray-6);
@@ -22,14 +22,6 @@
 
 .textLabel {
   color: var(--text-label);
-}
-
-.link {
-  text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
 }
 
 .sectionIcon {
@@ -51,41 +43,6 @@
 .card {
   display: flex;
   flex-direction: column;
-}
-
-.integrationsContainer {
-  position: relative;
-  min-height: 120px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.integrationsInner {
-  position: relative;
-  width: 100%;
-  height: 110px;
-}
-
-.integrationCard {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  box-shadow: var(--mantine-shadow-xs);
-  height: 64px;
-  padding: 4px;
-  background-color: var(--mantine-color-white);
-  border-radius: var(--mantine-radius-md);
-  border: 1px solid var(--mantine-color-gray-3);
-}
-
-.integrationImage {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 .gridCell {

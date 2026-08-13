@@ -1,3 +1,28 @@
+:root {
+  color-scheme: light;
+  --hypers-primary: #1264ff;
+  --hypers-primary-deep: #084abf;
+  --hypers-ink: #0b2944;
+  --hypers-ink-deep: #061b2d;
+  --hypers-muted: #5c6f82;
+  --hypers-border: #dfe6ee;
+  --hypers-surface: #ffffff;
+  --hypers-soft-surface: #f4f7fb;
+  --hypers-focus-ring: rgba(18, 100, 255, 0.35);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--hypers-soft-surface);
+  color: var(--hypers-ink);
+}
+
 .mantine-ActionIcon-root:active {
   transform: none;
 }

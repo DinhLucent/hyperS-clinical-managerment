@@ -21,16 +21,12 @@ import { MedplumLink, useMedplum } from '@medplum/react';
 import { useSyncOrderSet } from '@medplum/react-hooks';
 import {
   IconApps,
-  IconArrowUpRight,
   IconBook,
-  IconBrandDiscord,
   IconBuilding,
   IconDatabase,
   IconDownload,
-  IconExternalLink,
   IconFileText,
   IconHelpCircle,
-  IconMail,
   IconMedicalCross,
   IconUser,
 } from '@tabler/icons-react';
@@ -145,43 +141,17 @@ export function GetStartedPage(): JSX.Element {
     }
   }, [medplum, syncOrderSet]);
 
-  const integrations = [
-    { src: '/img/integrations/labcorp.png', alt: 'Labcorp', left: 20, top: 20, zIndex: 1, rotation: -2 },
-    { src: '/img/integrations/quest.png', alt: 'Quest Diagnostics', left: 70, top: 0, zIndex: 2, rotation: 2 },
-    { src: '/img/integrations/candid.png', alt: 'Candid Health', left: 115, top: 30, zIndex: 3, rotation: -1 },
-    { src: '/img/integrations/okta.png', alt: 'Okta', left: 165, top: 10, zIndex: 4, rotation: 1 },
-    { src: '/img/integrations/epic.png', alt: 'Epic Systems', left: 210, top: 40, zIndex: 5, rotation: -1.5 },
-    { src: '/img/integrations/healthgorilla.png', alt: 'Health Gorilla', left: 260, top: 5, zIndex: 6, rotation: 1.5 },
-  ];
-
   return (
     <Box className={classes.page} py="6rem">
       <Container size="md" className={classes.container}>
         {/* Header */}
         <Box mb="6rem">
           <Title order={2} fw={800}>
-            Get Started with Medplum Provider
+            Get Started with HyperS
           </Title>
           <Text size="lg" mt=".25rem" className={classes.textSecondary}>
-            Below are our recommended first steps to get set up and familiar with the available features and workflows
-            in Provider. Please note: if you are using the free version of Provider, some services may not be
-            available—lab ordering, prescriptions, billing, and access to code systems (such as CPT and ICD-10) require
-            a paid plan.{' '}
-            <Text
-              component="a"
-              href="https://www.medplum.com/pricing"
-              target="_blank"
-              c="blue.6"
-              className={classes.link}
-              span
-            >
-              Subscribe
-            </Text>{' '}
-            or{' '}
-            <Text component="a" href="mailto:support@medplum.com" c="blue.6" className={classes.link} span>
-              contact us
-            </Text>{' '}
-            to integrate these services.
+            Use this local demo to explore sample clinical workflows, review the available integrations, and configure
+            your workspace at your own pace.
           </Text>
         </Box>
 
@@ -388,33 +358,14 @@ export function GetStartedPage(): JSX.Element {
                   Integrate Your Services
                 </Text>
                 <Text size="sm" className={classes.textSecondary}>
-                  Contact us to connect existing services or set up new ones.
+                  Explore the services that can connect to your clinical workspace. Integration requests are coming
+                  soon.
                 </Text>
               </Stack>
             </Group>
             <Paper radius="md" withBorder p="md" shadow="sm">
               <Grid gutter="lg" align="center">
-                <Grid.Col span={{ base: 12, md: 6 }}>
-                  <Box className={classes.integrationsContainer}>
-                    <Box className={classes.integrationsInner}>
-                      {integrations.map((integration) => (
-                        <Box
-                          key={integration.src}
-                          className={classes.integrationCard}
-                          style={{
-                            left: integration.left,
-                            top: integration.top,
-                            zIndex: integration.zIndex,
-                            transform: `rotate(${integration.rotation}deg)`,
-                          }}
-                        >
-                          <img src={integration.src} alt={integration.alt} className={classes.integrationImage} />
-                        </Box>
-                      ))}
-                    </Box>
-                  </Box>
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 6 }}>
+                <Grid.Col span={12}>
                   <Stack gap="md" style={{ display: 'flex', justifyContent: 'center', height: '100%' }}>
                     <Box>
                       <Text size="sm" my="md">
@@ -458,7 +409,7 @@ export function GetStartedPage(): JSX.Element {
             </Paper>
           </Box>
 
-          {/* How to Use Provider */}
+          {/* Core workflows */}
           <Box>
             <Group mb="xl" gap="sm" align="center">
               <ActionIcon size={48} radius="xl" variant="light" className={classes.sectionIcon}>
@@ -466,10 +417,11 @@ export function GetStartedPage(): JSX.Element {
               </ActionIcon>
               <Stack gap={0} className={classes.flexOne}>
                 <Text fw={800} size="xl">
-                  View Our User Guide
+                  Explore Core Workflows
                 </Text>
                 <Text size="sm" className={classes.textSecondary}>
-                  Follow step-by-step documentation to get the most out of Medplum Provider.
+                  Guided documentation is coming soon. These workflow cards outline the main areas to explore in the
+                  local demo.
                 </Text>
               </Stack>
             </Group>
@@ -480,41 +432,16 @@ export function GetStartedPage(): JSX.Element {
                   <Box p="lg" className={classes.gridCellContent}>
                     <Box className={classes.dividerRight} />
                     <Box className={classes.dividerBottom} />
-                    <Text
-                      component="a"
-                      href="https://www.medplum.com/docs/provider/getting-started"
-                      target="_blank"
-                      fw={600}
-                      size="lg"
-                      className={classes.sectionTitle}
-                      mb="xs"
-                    >
-                      Adding Practitioners & Data <IconArrowUpRight size={16} style={{ verticalAlign: 'middle' }} />
+                    <Text fw={600} size="lg" className={classes.sectionTitle} mb="xs">
+                      Adding Practitioners &amp; Data
                     </Text>
-                    <List size="md" spacing={2} className={classes.flexOne} c="blue">
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/getting-started#adding-practitioners"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Adding Practitioners
-                        </Text>
-                      </List.Item>
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/getting-started#importing-data"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Importing Data
-                        </Text>
-                      </List.Item>
+                    <List size="md" spacing={2} className={classes.flexOne}>
+                      <List.Item>Adding Practitioners</List.Item>
+                      <List.Item>Importing Data</List.Item>
                     </List>
+                    <Button variant="light" size="xs" disabled mt="sm">
+                      Coming soon
+                    </Button>
                   </Box>
                 </Grid.Col>
 
@@ -522,52 +449,17 @@ export function GetStartedPage(): JSX.Element {
                 <Grid.Col span={{ base: 12, sm: 6 }} className={classes.gridCell}>
                   <Box p="lg" className={classes.gridCellContent}>
                     <Box className={classes.dividerBottom} />
-                    <Text
-                      component="a"
-                      href="https://www.medplum.com/docs/provider/patient-profile"
-                      target="_blank"
-                      fw={600}
-                      size="lg"
-                      className={classes.sectionTitle}
-                      mb="xs"
-                    >
-                      Patient Profile <IconArrowUpRight size={16} style={{ verticalAlign: 'middle' }} />
+                    <Text fw={600} size="lg" className={classes.sectionTitle} mb="xs">
+                      Patient Profile
                     </Text>
-                    <List size="md" spacing={2} className={classes.flexOne} c="blue">
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/patient-profile#registering-patients"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Registering Patients
-                        </Text>
-                      </List.Item>
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/patient-profile#editing-patient-demographics"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Editing Patient Demographics
-                        </Text>
-                      </List.Item>
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/patient-profile#updating-the-patient-summary-sidebar"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Updating Patient Summary
-                        </Text>
-                      </List.Item>
+                    <List size="md" spacing={2} className={classes.flexOne}>
+                      <List.Item>Registering Patients</List.Item>
+                      <List.Item>Editing Patient Demographics</List.Item>
+                      <List.Item>Updating Patient Summary</List.Item>
                     </List>
+                    <Button variant="light" size="xs" disabled mt="sm">
+                      Coming soon
+                    </Button>
                   </Box>
                 </Grid.Col>
 
@@ -575,100 +467,40 @@ export function GetStartedPage(): JSX.Element {
                 <Grid.Col span={{ base: 12, sm: 6 }} className={classes.gridCell}>
                   <Box p="lg" className={classes.gridCellContent}>
                     <Box className={classes.dividerRight} />
-                    <Text
-                      component="a"
-                      href="https://www.medplum.com/docs/provider/schedule"
-                      target="_blank"
-                      fw={600}
-                      size="lg"
-                      className={classes.sectionTitle}
-                      mb="xs"
-                    >
-                      Schedule <IconArrowUpRight size={16} style={{ verticalAlign: 'middle' }} />
+                    <Text fw={600} size="lg" className={classes.sectionTitle} mb="xs">
+                      Schedule
                     </Text>
-                    <List size="sm" spacing={2} className={classes.flexOne} c="blue">
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/schedule#scheduling-a-visit"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Scheduling a Visit
-                        </Text>
-                      </List.Item>
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/schedule#setting-provider-availability"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Setting Provider Availability
-                        </Text>
-                      </List.Item>
+                    <List size="sm" spacing={2} className={classes.flexOne}>
+                      <List.Item>Scheduling a Visit</List.Item>
+                      <List.Item>Setting Provider Availability</List.Item>
                     </List>
+                    <Button variant="light" size="xs" disabled mt="sm">
+                      Coming soon
+                    </Button>
                   </Box>
                 </Grid.Col>
 
                 {/* Visits */}
                 <Grid.Col span={{ base: 12, sm: 6 }} className={classes.gridCell}>
                   <Box p="lg" className={classes.gridCellContent}>
-                    <Text
-                      component="a"
-                      href="https://www.medplum.com/docs/provider/visits"
-                      target="_blank"
-                      fw={600}
-                      size="lg"
-                      className={classes.sectionTitle}
-                      mb="xs"
-                    >
-                      Visits <IconArrowUpRight size={16} style={{ verticalAlign: 'middle' }} />
+                    <Text fw={600} size="lg" className={classes.sectionTitle} mb="xs">
+                      Visits
                     </Text>
-                    <List size="sm" spacing={2} className={classes.flexOne} c="blue">
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/visits#understanding-visits"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Understanding Visits
-                        </Text>
-                      </List.Item>
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/visits#documenting-visits"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Documenting Visits
-                        </Text>
-                      </List.Item>
-                      <List.Item>
-                        <Text
-                          component="a"
-                          href="https://www.medplum.com/docs/provider/visits#setting-up-care-templates-via-medplum-app"
-                          target="_blank"
-                          c="blue"
-                          className={classes.link}
-                        >
-                          Setting Up Care Templates
-                        </Text>
-                      </List.Item>
+                    <List size="sm" spacing={2} className={classes.flexOne}>
+                      <List.Item>Understanding Visits</List.Item>
+                      <List.Item>Documenting Visits</List.Item>
+                      <List.Item>Setting Up Care Templates</List.Item>
                     </List>
+                    <Button variant="light" size="xs" disabled mt="sm">
+                      Coming soon
+                    </Button>
                   </Box>
                 </Grid.Col>
               </Grid>
             </Paper>
           </Box>
 
-          {/* Further Support */}
+          {/* HyperS support */}
           <Box>
             <Group mb="xl" gap="sm" align="center">
               <ActionIcon size={48} radius="xl" variant="light" className={classes.sectionIcon}>
@@ -676,66 +508,27 @@ export function GetStartedPage(): JSX.Element {
               </ActionIcon>
               <Stack gap={0} className={classes.flexOne}>
                 <Text fw={800} size="xl">
-                  Get Help
+                  HyperS Support
                 </Text>
                 <Text size="sm" className={classes.textSecondary}>
-                  Join our community for discussion, or contact our team for support.
+                  Support channels are coming soon.
                 </Text>
               </Stack>
             </Group>
             <Grid gutter="md">
-              <Grid.Col span={{ base: 12, sm: 6 }} className={classes.gridCell}>
+              <Grid.Col span={12} className={classes.gridCell}>
                 <Paper radius="md" withBorder p="lg" shadow="sm" className={classes.helpCard}>
                   <Stack gap="md" className={classes.flexOne}>
-                    <Group gap="sm" align="center">
-                      <IconBrandDiscord size={24} color="var(--icon-secondary)" />
-                      <Text fw={600} size="lg">
-                        Discord Community
-                      </Text>
-                    </Group>
+                    <Text fw={600} size="lg">
+                      Support channels
+                    </Text>
                     <Divider />
                     <Text size="md" className={classes.textSecondary} mb="sm" style={{ flex: 1 }}>
-                      Join our active community for questions and discussions.
+                      HyperS support resources are being prepared for this local customer demo.
                     </Text>
                   </Stack>
-                  <Button
-                    component="a"
-                    href="https://discord.gg/medplum"
-                    target="_blank"
-                    variant="filled"
-                    size="sm"
-                    mt="sm"
-                    fullWidth
-                    rightSection={<IconExternalLink size={14} />}
-                  >
-                    Join Medplum Discord
-                  </Button>
-                </Paper>
-              </Grid.Col>
-              <Grid.Col span={{ base: 12, sm: 6 }} className={classes.gridCell}>
-                <Paper radius="md" withBorder p="lg" shadow="sm" className={classes.helpCard}>
-                  <Stack gap="md" className={classes.flexOne}>
-                    <Group gap="sm" align="center">
-                      <IconMail size={24} color="var(--icon-secondary)" />
-                      <Text fw={600} size="lg">
-                        Contact Us
-                      </Text>
-                    </Group>
-                    <Divider />
-                    <Text size="md" className={classes.textSecondary} mb="sm" style={{ flex: 1 }}>
-                      Get in touch with product questions, feedback, or for enterprise support.
-                    </Text>
-                  </Stack>
-                  <Button
-                    component="a"
-                    href="mailto:support@medplum.com"
-                    variant="filled"
-                    size="sm"
-                    mt="sm"
-                    fullWidth
-                    rightSection={<IconExternalLink size={14} />}
-                  >
-                    Contact Support
+                  <Button variant="filled" size="sm" mt="sm" fullWidth disabled>
+                    Coming soon
                   </Button>
                 </Paper>
               </Grid.Col>

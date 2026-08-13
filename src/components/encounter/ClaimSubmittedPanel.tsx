@@ -152,7 +152,7 @@ const getStatusColor = (status: string): string => {
   if (['paid', 'finalized_paid'].includes(status)) {
     return 'green';
   }
-  return 'violet';
+  return 'blue';
 };
 
 const formatCandidStatus = (status: string): string =>

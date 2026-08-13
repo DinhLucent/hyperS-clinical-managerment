@@ -39,8 +39,11 @@ describe('RegisterPage', () => {
     const medplum = new MockClient({ profile: null });
     await setup(medplum);
 
-    expect(screen.getByText('Register a new Provider account')).toBeInTheDocument();
+    expect(screen.getByText('Create your HyperS account')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'HyperS' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Register Account' })).toBeInTheDocument();
+    expect(screen.queryByText(/Medplum/i)).not.toBeInTheDocument();
+    expect(screen.queryAllByRole('link')).toHaveLength(0);
   });
 
   test('Redirects to sign in if signed in', async () => {
@@ -49,7 +52,7 @@ describe('RegisterPage', () => {
     const medplum = new MockClient({ profile: DrAliceSmith });
     await setup(medplum);
 
-    expect(screen.getByText('Sign in to Provider')).toBeInTheDocument();
+    expect(screen.getByText('Sign in to HyperS')).toBeInTheDocument();
   });
 
   test('Submit success', async () => {

@@ -37,7 +37,6 @@ import { IconAlertCircle } from '@tabler/icons-react';
 import type { JSX } from 'react';
 import { Fragment, useState } from 'react';
 import { useParams } from 'react-router';
-import { DocsLink } from '../../components/DocsLink';
 import { ReleaseStageBanner } from '../../components/ReleaseStageBanner';
 import { showErrorNotification, showSuccessNotification } from '../../utils/notifications';
 
@@ -122,8 +121,8 @@ export function ScheduleSettings(props: { schedule: Schedule }): JSX.Element | n
       <Stack gap="0">
         <Title order={3}>Visit Service Types</Title>
         <Text fs="italic" c="dimmed">
-          Choose what visit service types can be scheduled on this calendar. Learn more about{' '}
-          <DocsLink path="scheduling">configuring Scheduling</DocsLink>.
+          Choose what visit service types can be scheduled on this calendar. Guidance for configuring scheduling is
+          coming soon.
         </Text>
       </Stack>
       <OperationOutcomeAlert outcome={servicesOutcome} />
@@ -246,7 +245,7 @@ export function ScheduleSettingsPage(): JSX.Element {
         ))}
       </Title>
       <ReleaseStageBanner stage="beta" bdrs="md" mb="lg">
-        Medplum Scheduling is in a Beta period and is subject to change.
+        Scheduling is in a Beta period and is subject to change.
       </ReleaseStageBanner>
       {schedule ? <ScheduleSettings schedule={schedule} key={schedule.id} /> : <Loader />}
     </Document>

@@ -1,72 +1,77 @@
-<h1 align="center">Medplum Provider</h1>
-<p align="center">A starter application for building a health record system on Medplum.</p>
-<p align="center">
-<a href="https://github.com/medplum/medplum-hello-world/blob/main/LICENSE.txt">
-    <img src="https://img.shields.io/badge/license-Apache-blue.svg" />
-  </a>
-</p>
+# HyperS Clinical Management
 
-This example app demonstrates the following:
+HyperS Clinical Management is a local-first Provider demo for exploring clinical workflows while preserving the underlying FHIR and Medplum-compatible contracts.
 
-- Using [Medplum React Components](https://storybook.medplum.com/?path=/docs/medplum-introduction--docs) to display a chart that provides visibility on a patient
-  - More information on a [charting experience](https://www.medplum.com/docs/charting)
-- Using [Medplum GraphQL](https://graphiql.medplum.com/) queries to fetch linked resources
+## What the demo covers
 
-### Workflows
+- Patient registration, search, and clinical records
+- Visit documentation, tasks, messaging, and scheduling
+- Sample patient, visit, ICD-10, and order-set data
+- Medication, lab, billing, fax, SMART Health Link, and integration surfaces
 
-The application will feature the following core workflows:
+The customer-facing application is English-only and light-mode for this demo. Missing HyperS documentation, support, and integration-request destinations are represented as disabled `Coming soon` controls.
 
-- Visit documentation
-- Task creation and assignment
-- Appointment scheduling
-- Patient registration/onboarding
-- Lab orders
-- Ordering medications
-- Claim creation and billing
-- Patient/Provider Messaging
+## Local prerequisites
 
-### Getting Started
+- Node.js `v24.13.0` (the repository `.nvmrc` is authoritative)
+- npm
+- Docker Desktop with Compose
+- A running local Medplum-compatible API/database stack
 
-If you haven't already done so, follow the instructions in [this tutorial](https://www.medplum.com/docs/tutorials/register) to register a Medplum project to store your data.
+## Run locally
 
-[Fork](https://github.com/medplum/medplum-provider/fork) and clone the repo. Alternatively, this app lives in the [Medplum monorepo](https://github.com/medplum/medplum) at `examples/medplum-provider` — if you are working from the monorepo, run `npm ci` and `npm run build` at the repo root first so the workspace packages are built.
-
-Next, install the dependencies.
+Install exactly from the lockfile:
 
 ```bash
-npm install
+npm ci
 ```
 
-Then, run the app
+Start the local stack without deleting data:
+
+```bash
+docker compose -f infra/local/docker-compose.yml config --quiet
+docker compose -f infra/local/docker-compose.yml up -d
+```
+
+Start the Provider UI:
 
 ```bash
 npm run dev
 ```
 
-This app should run on `http://localhost:3001/`
+Local URLs:
 
-By default, the app connects to the hosted Medplum service at `https://api.medplum.com/`.
+- Provider customer demo: <http://localhost:3001>
+- Local API healthcheck: <http://localhost:8103/healthcheck>
+- Admin operator tool: <http://localhost:3002> — operator-only; do not link or show it in the customer demo
 
-### Running against a local Medplum server
+Port 3000 belongs to an unrelated local application and must not be stopped, restarted, or modified by this project.
 
-To run against a Medplum server on your own machine, follow the [Run the stack](https://www.medplum.com/docs/contributing/run-the-stack) guide to start the API server on port 8103, then edit `.env` in this directory:
+## Local-only configuration
 
+`.env.defaults` and the checked-in demo `.env` point the Provider at `http://localhost:8103/`. Google identity and reCAPTCHA values remain empty; no real OAuth, email, domain, or reCAPTCHA credentials are required or included.
+
+The application may use `@medplum/*` packages, `MedplumClient`, `MEDPLUM_*` environment keys, and FHIR canonical/system identifiers internally. These are compatibility contracts and are intentionally not renamed. See [NOTICE.md](NOTICE.md) for upstream attribution.
+
+## Verification
+
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm run build
+docker compose -f infra/local/docker-compose.yml config --quiet
 ```
-MEDPLUM_BASE_URL=http://localhost:8103/
-```
 
-Restart `npm run dev` after changing `.env`.
+The known standalone baseline includes React Compiler lint warnings and a Vite large-chunk warning; they must not become errors or be hidden by new configuration.
 
-### A note on value sets
+## Customer-demo boundaries
 
-Some fields in this app (diagnoses, medications, race/ethnicity, and others) autocomplete against clinical terminologies such as ICD-10, RxNorm, and US Core / VSAC value sets. On hosted Medplum, these are provided by shared projects [linked](https://www.medplum.com/docs/access/projects#project-linking) into your project. A fresh self-hosted or local server includes only the base FHIR R4 terminology, so these fields will show a "ValueSet not found" message inline and you will need to enter codes manually. To enable them, upload the value sets and import their code systems into a shared project (see [`CodeSystem/$import`](https://www.medplum.com/docs/api/fhir/operations/codesystem-import)) and link that project, or contact Medplum for access to the hosted terminology.
+- Provider port 3001 is the customer-facing surface.
+- Admin port 3002 is for operators only and is not part of the HyperS rebrand.
+- No cloud deployment, SaaS dependency, schema migration, FHIR data reset, or database-volume reset is part of this repository.
+- `docker compose down -v` is prohibited because it can remove demo data.
 
-### About Medplum
+## Brand assets
 
-[Medplum](https://www.medplum.com/) is an open-source, API-first EHR. Medplum makes it easy to build healthcare apps quickly with less code.
-
-Medplum supports self-hosting and provides a [hosted service](https://app.medplum.com/). Medplum Hello World uses the hosted service as a backend.
-
-- Read our [documentation](https://www.medplum.com/docs)
-- Browse our [react component library](https://storybook.medplum.com/)
-- Join our [Discord](https://discord.gg/medplum)
+The approved mark is documented in [docs/branding/HYPERS_BRAND.md](docs/branding/HYPERS_BRAND.md). The local web asset is `public/brand/hypers-mark.png`; it is copied from the approved transparent source without redrawing or distortion.

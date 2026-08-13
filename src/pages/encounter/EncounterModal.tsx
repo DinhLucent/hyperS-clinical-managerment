@@ -149,8 +149,8 @@ export const EncounterModal = (): JSX.Element => {
                 <Text size="sm" color="dimmed" mb="lg">
                   You can select template for new encounter. Tasks from the template will be automatically added to the
                   encounter. Administrators can create and edit templates in the{' '}
-                  <Text component="a" href="#" variant="link">
-                    Medplum app
+                  <Text component="span" fw={500}>
+                    HyperS workspace
                   </Text>
                   .
                 </Text>
