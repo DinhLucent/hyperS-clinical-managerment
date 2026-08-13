@@ -32,40 +32,40 @@ import {
 } from '@tabler/icons-react';
 import type { JSX } from 'react';
 import { useCallback, useState } from 'react';
+import { buildNephrologyDemoBundle, nephrologyDemoSummary } from '../../data/nephrologyDemo';
 import orderSetBundleData from '../../data/order-set-example-bundle.json';
-import patientBundleData from '../../data/patient-david-james-williams.json';
 import visitBundleData from '../../data/simple-initial-visit-bundle.json';
 import { showErrorNotification } from '../../utils/notifications';
 import classes from './GetStartedPage.module.css';
+import { getSuccessfulDemoImportCount } from './nephrologyDemoImport';
 import { buildOrderSetImportNotification } from './orderSetImportNotification';
 
 export function GetStartedPage(): JSX.Element {
   const medplum = useMedplum();
   const syncOrderSet = useSyncOrderSet();
-  const [importingPatient, setImportingPatient] = useState(false);
+  const [importingNephrologyDemo, setImportingNephrologyDemo] = useState(false);
   const [importingVisit, setImportingVisit] = useState(false);
   const [importingIcd10, setImportingIcd10] = useState(false);
   const [importingOrderSet, setImportingOrderSet] = useState(false);
 
-  const handleImportPatient = useCallback(async () => {
-    setImportingPatient(true);
+  const handleImportNephrologyDemo = useCallback(async () => {
+    setImportingNephrologyDemo(true);
     try {
-      // Convert searchset bundle to transaction bundle
-      const transactionBundle = convertToTransactionBundle(patientBundleData as Bundle);
-      const result = await medplum.executeBatch(transactionBundle);
+      const profile = medplum.getProfile();
+      const taskOwnerReference = profile?.id ? `${profile.resourceType}/${profile.id}` : undefined;
+      const result = await medplum.executeBatch(buildNephrologyDemoBundle(undefined, taskOwnerReference));
 
-      const resourceCount =
-        result.entry?.filter((entry: BundleEntry) => entry.response?.status?.startsWith('2')).length || 0;
+      const resourceCount = getSuccessfulDemoImportCount(result);
 
       showNotification({
         color: 'green',
-        title: 'Success',
-        message: `Imported ${resourceCount} resources for patient David James Williams`,
+        title: 'Nephrology demo ready',
+        message: `Loaded ${nephrologyDemoSummary.patientCount} synthetic patients and ${resourceCount - nephrologyDemoSummary.patientCount} linked clinical records.`,
       });
     } catch (error) {
       showErrorNotification(error);
     } finally {
-      setImportingPatient(false);
+      setImportingNephrologyDemo(false);
     }
   }, [medplum]);
 
@@ -164,10 +164,10 @@ export function GetStartedPage(): JSX.Element {
               </ActionIcon>
               <Stack gap={0} className={classes.flexOne}>
                 <Text fw={800} size="xl">
-                  Import Sample Data
+                  Load Demo Data
                 </Text>
                 <Text size="sm" className={classes.textSecondary}>
-                  Add placeholder data for patients, visits, and more to practice with.
+                  Build a realistic, fully synthetic workspace for demonstrating connected clinical workflows.
                 </Text>
               </Stack>
             </Group>
@@ -178,29 +178,35 @@ export function GetStartedPage(): JSX.Element {
                     <IconUser size={24} color="var(--icon-secondary)" />
                     <Stack gap={0}>
                       <Text size="11px" fw={500} className={classes.textLabel}>
-                        Sample Patient
+                        Nephrology Demo Cohort
                       </Text>
                       <Text fw={600} size="lg">
-                        David James Williams
+                        {nephrologyDemoSummary.patientCount} synthetic patient journeys
                       </Text>
                     </Stack>
                   </Group>
                   <Divider />
                   <Text size="md" className={classes.textSecondary} mb="sm" style={{ flex: 1 }}>
-                    Includes a sample patient with demographics and basic clinical data.
+                    Includes {nephrologyDemoSummary.detailedPatientCount} longitudinal kidney-care stories plus a
+                    compact supporting cohort with diagnoses, observations, medications, visits, tasks, care plans, and
+                    follow-up appointments.
+                  </Text>
+                  <Text size="xs" c="dimmed" mb="sm">
+                    Synthetic demonstration data only. Running the import again keeps the same records without
+                    duplicates.
                   </Text>
                 </Stack>
                 <Button
                   variant="filled"
                   size="sm"
                   fullWidth
-                  onClick={handleImportPatient}
-                  loading={importingPatient}
-                  disabled={importingPatient}
+                  onClick={handleImportNephrologyDemo}
+                  loading={importingNephrologyDemo}
+                  disabled={importingNephrologyDemo}
                   leftSection={<IconDownload size={14} />}
                   mt="sm"
                 >
-                  {importingPatient ? 'Importing...' : 'Import Patient'}
+                  {importingNephrologyDemo ? 'Importing...' : 'Import Nephrology Demo'}
                 </Button>
               </Paper>
               <Paper radius="md" withBorder p="lg" shadow="sm" className={classes.card}>
